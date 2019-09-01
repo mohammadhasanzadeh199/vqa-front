@@ -72,5 +72,5 @@ function download(content, fileName, contentType) {
 // )
 
 
-$(".header" ).resizable();
+$("#videoHeader" ).resizable();
 $(".log" ).resizable();

@@ -33,7 +33,7 @@ for (let i = 0; i<cols_data.length;i++){
 
 for (let i = 0; i<footer_icons.length;i++){
     let footer = $(".equalizer .table-footer .source").clone();
-    footer.find("img").attr("src","pic/icon/"+footer_icons[i]);
+    footer.find("img").attr("src","/static/pic/icon/"+footer_icons[i]);
     footer.removeClass("source");
     footer.insertAfter(".equalizer .table-footer .source");
 }

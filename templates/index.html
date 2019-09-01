@@ -33,7 +33,7 @@
     <body>
         <div class="container-fluid">
             <div class="row top-row">
-                <div class="header">
+                <div id="videoHeader" class="header">
                     <table class="table table-bordered">
                         <thead>
                             <tr>
@@ -148,14 +148,14 @@
                             <div style="display: flex;flex-direction: column;align-items: flex-start;">
                             <div class="mute-detection">
                                 <span class="icon">
-                                    <img src="pic/icon/Mute_Detection.png" alt="mute detection">
+                                    <img src="{% static 'pic/icon/Mute_Detection.png' %}" alt="mute detection">
                                     <span class="filter"></span>
                                 </span>
                                 <span>Mute Detection</span>
                             </div>
                             <div class="audio-detection">
                                 <span class="icon">
-                                    <img src="pic/icon/Audio_Clipping.png" alt="mute detection">
+                                    <img src="{% static 'pic/icon/Audio_Clipping.png' %}" alt="mute detection">
                                     <span class="filter active"></span>
                                 </span>
                                 <span style="color: #ff67c2;text-shadow:0 0 16px #f8ecf2;">Audio Clipping</span>
@@ -167,7 +167,7 @@
                                 <div style="width: fit-content">
                                 <div class="frame-freezing">
                                     <span class="icon">
-                                        <img src="pic/icon/Frame_Freezing.png" alt="mute detection">
+                                        <img src="{% static 'pic/icon/Frame_Freezing.png' %}" alt="mute detection">
                                         <span class="filter"></span>
                                     </span>
                                     <span>Frame Freezing</span>
@@ -175,7 +175,7 @@
 
                                 <div style="margin-top: 12px" class="black-frame">
                                     <span class="icon">
-                                        <img src="pic/icon/Black_Frame.png" alt="mute detection">
+                                        <img src="{% static 'pic/icon/Black_Frame.png' %}" alt="mute detection">
                                         <span class="filter active"></span>
                                     </span>
                                     <span style="color: #ff67c2;text-shadow:0 0 16px #f8ecf2;">Black Frame</span>
@@ -188,7 +188,7 @@
                                 <div style="width: fit-content">
                                 <div class="color-gamut">
                                     <span class="icon">
-                                        <img src="pic/icon/Color_Gamut.png" alt="mute detection">
+                                        <img src="{% static 'pic/icon/Color_Gamut.png' %}" alt="mute detection">
                                         <span class="filter active"></span>
                                     </span>
                                     <span style="color: #ff67c2;text-shadow:0 0 16px #f8ecf2;">Color Gamut</span>
@@ -196,7 +196,7 @@
                                 <div style="margin-top: 12px" class="boxing">
                                     <span class="icon">
                                         <span class="filter"></span>
-                                        <img src="pic/icon/Pillarboxing.png" alt="mute detection">
+                                        <img src="{% static 'pic/icon/Pillarboxing.png' %}" alt="mute detection">
                                     </span>
                                     <span>Boxing: Pillar</span>
                                 </div>
