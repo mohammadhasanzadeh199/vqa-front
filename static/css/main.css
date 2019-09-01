@@ -1,0 +1,46 @@
+.video-container {
+    padding: 0;
+    margin: 0;
+    width: calc( 100% / 12 * 5);
+    height: calc( 9 / 16 * 5 / 12 * 100vw + 50px);
+}
+.input-group {
+    height: 50px;
+    width: 100%;
+    background-color: #373737;
+    border-radius: 0;
+    /* border-bottom: white solid 0.2vw;
+    border-top: white solid 0.2vw; */
+}
+.input-group-prepend, .input-group-prepend span {
+    background-color: #373737;
+    color: white;
+    border-radius: 0;
+}
+.input-group input, .input-group input:focus {
+    height: 100%;
+    border-radius: 0;
+    background-color: #606062;
+    color: white
+}
+.video {
+    width: 100%;
+    height: calc( 9 / 16 * 5 / 12 * 100vw);
+    background-color: gray;
+    padding: 0;
+}
+/* ============================================================================== */
+/* =============== second row =================================================== */
+/* ============================================================================== */
+.bottom-row {
+    min-height: calc(100vh - 9 / 16 * 5 / 12 * 100vw);
+}
+.equalizer {
+    background-color: #606062;
+    border: black solid 0.2vw;
+    padding: 0;
+}
+
+.source {
+    display: none !important;
+}

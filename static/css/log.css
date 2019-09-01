@@ -1,0 +1,62 @@
+.log {
+    width: calc(5 * 100% / 12);
+    height: calc( 9 / 16 * 5 / 12 * 100vw + 50px);
+    overflow-y: hidden; 
+    position: relative;
+    background-color: #606062;
+    padding: 0;
+}
+.log .scrolable {
+    height: calc( 9 / 16 * 5 / 12 * 100vw );
+    overflow-y: scroll;
+}
+.log table {
+    margin-bottom: 0;
+}
+.log table .row {
+    margin: 0 !important;
+}
+.log td, .log th {
+    color: white;
+}
+.log th {
+    background-color: #373737;
+}
+.log td {
+    color: white;
+    font-size: 12px;
+    padding: 8px
+}
+.log td div {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+}
+.log .icon {
+    margin-right: 12px;
+}
+.log th{
+    text-align: center;
+    background-color: #373737;
+}
+
+
+.log .save {
+    position: absolute;
+    bottom: 5px;
+    opacity: 0.5;
+    right: 25px;
+}
+.log .clear {
+    position: absolute;
+    opacity: 0.5;
+    bottom: 5px;
+    right: 90px;
+    transition: opacity 0.5s;
+}
+.log .save:hover, .log .clear:hover {
+    opacity: 1;
+}

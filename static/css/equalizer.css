@@ -1,0 +1,119 @@
+.equalizer .equalizer-header {
+    height: 40px;
+    background-color: #373737;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+}
+.equalizer .equalizer-header .first{
+    font-size: 20px;
+    color: white;
+}
+.equalizer .equalizer-header .second {
+    color: rgb(256, 156, 0);
+    font-size: 20px;
+    margin-left: 12px;
+}
+.equalizer .table-keeper {
+    width: 100%;
+    height: calc(100% - 40px);
+    min-height: 400px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+}
+.equalizer .table {
+    width: 500px;
+    margin:0;
+}
+.equalizer .table-header {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    padding-right: 5px;
+    padding-left: 5px;
+    padding-bottom: 5px;
+    color: white;
+    font-weight: bold;
+}
+.equalizer .table-header .th {
+    width: 53px;
+    text-align: center;
+}
+.equalizer .table-body {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    background-image: url("../pic/Equaliser.png");
+    background-size: cover;
+    background-position: center;
+    border-radius: 8px;
+    padding:10px 3px 5px 3px;
+    -webkit-box-shadow: 0px 3px 5px 0px #333;
+            box-shadow: 0px 3px 5px 0px #333;
+}
+
+.equalizer .table-body .table-col .td{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    margin-bottom: 6px;
+}
+
+.equalizer .table-body .table-col .td .left{
+    width: 25px;
+    height: 15px;
+    margin: 0;
+    margin-right: 3px;
+    border: solid #585858 1px;
+    border-radius: 4px 1px 1px 4px;
+    -webkit-box-shadow: 1px 4px 6px 0px #222 inset;
+            box-shadow: 1px 4px 6px 0px #222 inset;
+}
+.equalizer .table-body .table-col .td .right{
+    width: 25px;
+    height: 15px;
+    margin: 0;
+    border-radius: 1px 4px 4px 1px;
+    border: solid #585858 1px;
+    -webkit-box-shadow: 1px 4px 6px 0px #222 inset;
+            box-shadow: 1px 4px 6px 0px #222 inset;
+}
+.equalizer .table-footer {
+    margin-top: 10px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    padding-right: 5px;
+    padding-left: 5px;
+}
+.equalizer .table-footer .footer-item {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    width: 53px;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+}

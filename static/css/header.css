@@ -1,0 +1,24 @@
+.header {
+    width: calc(2 * 100% / 12);
+    height: calc( 9 / 16 * 5 / 12 * 100vw + 50px);
+    padding: 0;
+    overflow-y: hidden;
+    background-color: #606062;
+}
+.header .scrolable {
+    height: calc( 9 / 16 * 5 / 12 * 100vw);
+    overflow-y: scroll;
+}
+.header table {
+    margin-bottom: 0;
+}
+.header th {
+    text-align: center;
+    background-color: #373737;
+    color: white;
+}
+.header td {
+    color: white;
+    font-size: 12px;
+    padding: 8px
+}

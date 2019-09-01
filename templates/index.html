@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="keywords" content="video" />
+        <meta name="description" content="video analize" />
+        <!-- -----------jquery----------------------------------------------- -->
+        <script src="{% static 'frontLibs/jquery.min.js' %}"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <!-- -----------bootstrap-------------------------------------------- -->
+        <link
+            rel="stylesheet"
+            href="{% static 'frontLibs/bootstrap-4.3.1-dist/css/bootstrap.min.css' %}"
+        />
+        <script src="{% static 'frontLibs/bootstrap-4.3.1-dist/js/bootstrap.min.js' %}"></script>
+        <!-- -----------project------------------------------------------- -->
+        <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+        <link rel="stylesheet" href="{% static 'css/header.css' %}">
+        <link rel="stylesheet" href="{% static 'css/log.css' %}">
+        <link rel="stylesheet" href="{% static 'css/equalizer.css' %}">
+        <link rel="stylesheet" href="{% static 'css/videoFeatures.css' %}">
+        <script id="frontLibsrary" src="{% static 'frontLibs/hls.js' %}"></script>
+        <script src="{% static 'frontLibs/chart.js' %}"></script>
+        <script src="{% static 'frontLibs/chartjs-plugin-doughnutlabel.min.js' %}"></script>
+
+    </head>
+
+    <body>
+        <div class="container-fluid">
+            <div class="row top-row">
+                <div class="header">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th colspan="2" scope="col">Header</th>
+                            </tr>
+                        </thead>
+                    </table>
+                    <div class="scrolable">
+                    <table class="table table-bordered table-hover">
+                        <tbody>
+                            <tr class="source">
+                                <td class="key">Video Codec</td>
+                                <td class="value"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+                <div class="video-container">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroup-sizing-default">URL</span>
+                            </div>
+                            <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                        </div>
+                    <video
+                        id="video"
+                        controls
+                        data-toggle="tooltip" title="equalizer"
+                        class="video"
+                    ></video>
+                </div>
+                <div class="log">
+                    <div style="overflow-y: scroll">
+                        <table style="border-bottom: none" class="table table-bordered table-hover">
+                            <thead>
+                                <tr class="row">
+                                    <th class="col-4">Features</th>
+                                    <th class="col">Start</th>
+                                    <th class="col">End</th>
+                                    <th class="col">Date</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                    <div class="scrolable">
+                        <table style="border-top: none" class="table table-bordered table-hover">
+                            <tbody>
+                                <tr class="source row">
+                                    <td class="col-4" >
+                                        <div>
+                                            <img class="icon" src="" alt="icon">
+                                            <span class="features"></span>
+                                        </div>
+                                    </td>
+                                    <td class="col" class="start"></td>
+                                    <td class="col" class="end"></td>
+                                    <td class="col" class="date"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <button type="button" class="btn btn-dark save">Save</button>
+                    <button type="button" class="btn btn-dark clear">Clear</button>
+                </div>
+            </div>
+            <div class="row bottom-row">
+                <div class="col-7 equalizer">
+                    <div class="equalizer-header">
+                        <span class="first">Audio Features</span>
+                        <span class="second">MOS:5</span>
+                    </div>
+                    <div class="table-keeper">
+                    <div class="table">
+                        <div class="table-header">
+                            <div class="th source"></div>
+                        </div>
+                        <div class="table-body">
+                            <div data-toggle="tooltip" title="equalizer" class="table-col source">
+                                <div class="td source">
+                                    <div class="left"></div>
+                                    <div class="right"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-footer">
+                            <div class="footer-item source">
+                                <img src="pic/icon/Letterboxing.png"></img>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="col-5 video-features">
+                    <div class="top-part">
+                        <div class="header">
+                            <span class="first">Video Features</span>
+                            <span class="second">MOS:3</span>
+                        </div>
+                        <div style="width: 100%;height: calc(100% - 40px);display: flex;overflow-y: scroll">
+                        <div style="width: 100%;display: flex;justify-content: center">
+                        <div class="chart-keeper">
+                            <div class="chart-container source">
+                                <canvas id="myCanvas"></canvas>
+                            </div>
+                        </div>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="bottom-part">
+                        <div class="left col-4">
+                            <div style="display: flex;flex-direction: column;align-items: flex-start;">
+                            <div class="mute-detection">
+                                <span class="icon">
+                                    <img src="pic/icon/Mute_Detection.png" alt="mute detection">
+                                    <span class="filter"></span>
+                                </span>
+                                <span>Mute Detection</span>
+                            </div>
+                            <div class="audio-detection">
+                                <span class="icon">
+                                    <img src="pic/icon/Audio_Clipping.png" alt="mute detection">
+                                    <span class="filter active"></span>
+                                </span>
+                                <span style="color: #ff67c2;text-shadow:0 0 16px #f8ecf2;">Audio Clipping</span>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="right col-8">
+                            <div class="item-row">
+                                <div style="width: fit-content">
+                                <div class="frame-freezing">
+                                    <span class="icon">
+                                        <img src="pic/icon/Frame_Freezing.png" alt="mute detection">
+                                        <span class="filter"></span>
+                                    </span>
+                                    <span>Frame Freezing</span>
+                                </div>
+
+                                <div style="margin-top: 12px" class="black-frame">
+                                    <span class="icon">
+                                        <img src="pic/icon/Black_Frame.png" alt="mute detection">
+                                        <span class="filter active"></span>
+                                    </span>
+                                    <span style="color: #ff67c2;text-shadow:0 0 16px #f8ecf2;">Black Frame</span>
+                                </div>
+                                </div>
+                            </div>
+
+
+                            <div class="item-row">
+                                <div style="width: fit-content">
+                                <div class="color-gamut">
+                                    <span class="icon">
+                                        <img src="pic/icon/Color_Gamut.png" alt="mute detection">
+                                        <span class="filter active"></span>
+                                    </span>
+                                    <span style="color: #ff67c2;text-shadow:0 0 16px #f8ecf2;">Color Gamut</span>
+                                </div>
+                                <div style="margin-top: 12px" class="boxing">
+                                    <span class="icon">
+                                        <span class="filter"></span>
+                                        <img src="pic/icon/Pillarboxing.png" alt="mute detection">
+                                    </span>
+                                    <span>Boxing: Pillar</span>
+                                </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/header.js' %}"></script>
+    <script src="{% static 'js/log.js' %}"></script>
+    <script src="{% static 'js/equalizer.js' %}"></script>
+    <script src="{% static 'js/videoFeatures.js' %}"></script>
+    <script src="{% static 'js/connection.js' %}"></script>
+</html>
