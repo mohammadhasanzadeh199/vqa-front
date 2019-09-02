@@ -5,6 +5,11 @@ let videoMinWidth = 300;
 let headerMinWidth = 200;
 let logMinWidth = 300;
 //-------------------------------------------------------------
+let equalizerWidth = $(".equalizer").width();
+let equalizerMinWidth = 500;
+let videoFeaturesWidth = $(".video-features").width();
+let videoFeaturesMinWidth = 400;
+//-------------------------------------------------------------
 let topPartHeight = $(".top-row.top-container" ).height();
 let bottomPartHeight = $(".bottom-row.bottom-container" ).height();
 let topPartMinHeight = 300;
@@ -73,12 +78,36 @@ $(".top-row.top-container" ).resize(function(){
 })
 
 
+// =========================================================================================================================
+// =========== equalizer and video features resizable (horizontal only) ====================================================
+// =========================================================================================================================
+$(".equalizer" ).resizable({handles: 'e'});
+$(".equalizer" ).resize(function(){
+
+    if ($(".equalizer").width() <= equalizerMinWidth && $(".equalizer").width() - equalizerWidth < 0){
+        console.log("smallll")
+        $(".equalizer").width(equalizerMinWidth)
+        $(".video-features").width($(window).width() - equalizerMinWidth );
+        return false;
+    } else if ($(".video-features").width() <= videoFeaturesMinWidth && $(".equalizer").width() - equalizerWidth > 0){
+        $(".video-features").width(videoFeaturesMinWidth);
+        $(".equalizer").width($(window).width() - videoFeaturesMinWidth)
+        console.log($(".video-features").width())
+        return false;
+    } else {
+        $(".video-features").width(videoFeaturesWidth + (equalizerWidth - $(".equalizer" ).width()));
+        reload()
+    }
+})
+
 function reload(){
     videoHeaderWidth = $("#videoHeader" ).width();
     videoWidth = $(".video-container").width();
     logWidht = $(".log").width();
     topPartHeight =  $(".top-row.top-container" ).height();
     bottomPartHeight = $(".bottom-row.bottom-container").height();
+    equalizerWidth = $(".equalizer").width();
+    videoFeaturesWidth = $(".video-features").width();
     // $("#videoHeader" ).css("max-width",$(".top-row.top-container").width()-videoMinWidth-$(".log").width());
     // $(".log" ).css("max-width",$(".top-row.top-container").width()-videoMinWidth-$("#videoHeader").width());
 }

@@ -45,6 +45,7 @@
     min-height: 400px
 }
 .equalizer {
+    width: calc(7 / 12 * 100%);
     background-color: #606062;
     border: black solid 0.2vw;
     padding: 0;

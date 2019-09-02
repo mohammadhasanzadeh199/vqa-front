@@ -1,5 +1,6 @@
 .video-features {
     padding: 0;
+    width: calc(5 / 12 * 100%);
     border: black solid 0.2vw;
     border-collapse: collapse;
 }
