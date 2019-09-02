@@ -87,11 +87,11 @@ $(".equalizer" ).resize(function(){
     if ($(".equalizer").width() <= equalizerMinWidth && $(".equalizer").width() - equalizerWidth < 0){
         console.log("smallll")
         $(".equalizer").width(equalizerMinWidth)
-        $(".video-features").width($(window).width() - equalizerMinWidth );
+        $(".video-features").width(0.991*$(window).width() - equalizerMinWidth );
         return false;
     } else if ($(".video-features").width() <= videoFeaturesMinWidth && $(".equalizer").width() - equalizerWidth > 0){
         $(".video-features").width(videoFeaturesMinWidth);
-        $(".equalizer").width($(window).width() - videoFeaturesMinWidth)
+        $(".equalizer").width(0.991*$(window).width() - videoFeaturesMinWidth)
         console.log($(".video-features").width())
         return false;
     } else {
