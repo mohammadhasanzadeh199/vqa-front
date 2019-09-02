@@ -1,8 +1,12 @@
+.top-row.top-container {
+    height: calc( 9 / 16 * 5 / 12 * 100vw + 50px);
+    min-height: 300px;
+}
 .video-container {
     padding: 0;
     margin: 0;
     width: calc( 100% / 12 * 5);
-    height: calc( 9 / 16 * 5 / 12 * 100vw + 50px);
+    height: 100%;
 }
 .input-group {
     height: 50px;
@@ -23,9 +27,13 @@
     background-color: #606062;
     color: white
 }
+.video-container button, .video-container button:hover, .video-container button:active {
+    border-bottom: white solid 0.1vw;
+    border-radius: 0;
+}
 .video {
     width: 100%;
-    height: calc( 9 / 16 * 5 / 12 * 100vw);
+    height: calc( 100% - 50px);
     background-color: gray;
     padding: 0;
 }
@@ -33,7 +41,8 @@
 /* =============== second row =================================================== */
 /* ============================================================================== */
 .bottom-row {
-    min-height: calc(100vh - 9 / 16 * 5 / 12 * 100vw);
+    height: calc(100vh - 9 / 16 * 5 / 12 * 100vw);
+    min-height: 400px
 }
 .equalizer {
     background-color: #606062;

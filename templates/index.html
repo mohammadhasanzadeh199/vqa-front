@@ -32,7 +32,7 @@
 
     <body>
         <div class="container-fluid">
-            <div class="row top-row">
+            <div class="row top-row top-container">
                 <div id="videoHeader" class="header">
                     <table class="table table-bordered">
                         <thead>
@@ -58,6 +58,7 @@
                                 <span class="input-group-text" id="inputGroup-sizing-default">URL</span>
                             </div>
                             <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                            <button type="button" class="btn btn-dark">Start</button>
                         </div>
                     <video
                         id="video"
@@ -100,7 +101,7 @@
                     <button type="button" class="btn btn-dark clear">Clear</button>
                 </div>
             </div>
-            <div class="row bottom-row">
+            <div class="row bottom-row bottom-container">
                 <div class="col-7 equalizer">
                     <div class="equalizer-header">
                         <span class="first">Audio Features</span>
@@ -216,4 +217,5 @@
     <script src="{% static 'js/equalizer.js' %}"></script>
     <script src="{% static 'js/videoFeatures.js' %}"></script>
     <script src="{% static 'js/connection.js' %}"></script>
+    <script src="{% static 'js/resize.js' %}"></script>
 </html>

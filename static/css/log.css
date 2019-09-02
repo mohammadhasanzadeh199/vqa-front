@@ -1,13 +1,13 @@
 .log {
     width: calc(5 * 100% / 12);
-    height: calc( 9 / 16 * 5 / 12 * 100vw + 50px);
-    overflow-y: hidden; 
+    height: 100%;
+    overflow: hidden; 
     position: relative;
     background-color: #606062;
     padding: 0;
 }
 .log .scrolable {
-    height: calc( 9 / 16 * 5 / 12 * 100vw );
+    height: calc( 100% - 50px );
     overflow-y: scroll;
 }
 .log table {

@@ -1,13 +1,14 @@
 #videoHeader {
+    height: 100%;
     width: calc(2 * 100% / 12);
-    height: calc( 9 / 16 * 5 / 12 * 100vw + 50px);
     padding: 0;
-    overflow-y: hidden;
+    overflow: hidden;
     background-color: #606062;
 }
 #videoHeader .scrolable {
-    height: calc( 9 / 16 * 5 / 12 * 100vw);
+    height: calc( 100% - 50px);
     overflow-y: scroll;
+    overflow-x: hidden;
 }
 #videoHeader table {
     margin-bottom: 0;
