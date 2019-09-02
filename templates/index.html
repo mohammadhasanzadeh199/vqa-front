@@ -137,7 +137,7 @@
                         <div style="width: 100%;height: calc(100% - 40px);display: flex;overflow-y: scroll">
                         <div style="width: 100%;display: flex;justify-content: center">
                         <div class="chart-keeper">
-                            <div class="chart-container source">
+                            <div style="width:120px;height:120px" class="chart-container source">
                                 <canvas id="myCanvas"></canvas>
                             </div>
                         </div>
@@ -152,14 +152,14 @@
                                     <img src="{% static 'pic/icon/Mute_Detection.png' %}" alt="mute detection">
                                     <span class="filter"></span>
                                 </span>
-                                <span>Mute Detection</span>
+                                <span  class="neon-text">Mute Detection</span>
                             </div>
-                            <div class="audio-detection">
+                            <div class="audio-cliping">
                                 <span class="icon">
                                     <img src="{% static 'pic/icon/Audio_Clipping.png' %}" alt="mute detection">
-                                    <span class="filter active"></span>
+                                    <span class="filter"></span>
                                 </span>
-                                <span style="color: #ff67c2;text-shadow:0 0 16px #f8ecf2;">Audio Clipping</span>
+                                <span class="neon-text">Audio Clipping</span>
                             </div>
                             </div>
                         </div>
@@ -171,7 +171,7 @@
                                         <img src="{% static 'pic/icon/Frame_Freezing.png' %}" alt="mute detection">
                                         <span class="filter"></span>
                                     </span>
-                                    <span>Frame Freezing</span>
+                                    <span  class="neon-text">Frame Freezing</span>
                                 </div>
 
                                 <div style="margin-top: 12px" class="black-frame">
@@ -179,7 +179,7 @@
                                         <img src="{% static 'pic/icon/Black_Frame.png' %}" alt="mute detection">
                                         <span class="filter active"></span>
                                     </span>
-                                    <span style="color: #ff67c2;text-shadow:0 0 16px #f8ecf2;">Black Frame</span>
+                                    <span class="neon-text">Black Frame</span>
                                 </div>
                                 </div>
                             </div>
@@ -192,14 +192,14 @@
                                         <img src="{% static 'pic/icon/Color_Gamut.png' %}" alt="mute detection">
                                         <span class="filter active"></span>
                                     </span>
-                                    <span style="color: #ff67c2;text-shadow:0 0 16px #f8ecf2;">Color Gamut</span>
+                                    <span class="neon-text">Color Gamut</span>
                                 </div>
                                 <div style="margin-top: 12px" class="boxing">
                                     <span class="icon">
                                         <span class="filter"></span>
                                         <img src="{% static 'pic/icon/Pillarboxing.png' %}" alt="mute detection">
                                     </span>
-                                    <span>Boxing: Pillar</span>
+                                    <span  class="neon-text">Boxing: Pillar</span>
                                 </div>
                                 </div>
                             </div>

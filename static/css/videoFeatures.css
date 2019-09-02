@@ -120,13 +120,17 @@
 .video-features .icon .active {
     display: block;
 }
-.mute-detection, .audio-detection, .frame-freezing, .boxing {
+.video-features .neon-text-active{
+    color: #ff67c2;
+    text-shadow:0 0 16px #f8ecf2;
+}
+.mute-detection, .audio-cliping, .frame-freezing, .boxing {
     color: rgb(183, 183, 183);
 }
-.audio-detection {
+.audio-cliping {
     margin-top: 12px;
 }
-.mute-detection .icon, .audio-detection .icon {
+.mute-detection .icon, .audio-cliping .icon {
     margin-right: 12px;
 }
 
