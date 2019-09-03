@@ -14,6 +14,8 @@ let topPartHeight = $(".top-row.top-container" ).height();
 let bottomPartHeight = $(".bottom-row.bottom-container" ).height();
 let topPartMinHeight = 300;
 let bottomPartMinHeight = 400;
+
+let windowWidth = $(window).width();
 // =========================================================================================================================
 // =========== video header box resizable (just horizontal) ================================================================
 // =========================================================================================================================
@@ -110,4 +112,23 @@ function reload(){
     videoFeaturesWidth = $(".video-features").width();
     // $("#videoHeader" ).css("max-width",$(".top-row.top-container").width()-videoMinWidth-$(".log").width());
     // $(".log" ).css("max-width",$(".top-row.top-container").width()-videoMinWidth-$("#videoHeader").width());
+}
+
+$(window).resize(function(){
+    if (windowWidth != $(window).width()){
+        windowWidth = $(window).width();
+        console.log("resytle");
+        restyle()
+    }
+})
+
+function restyle(){
+    $("#videoHeader" ).width("calc(2 * 100% / 12)");
+    $(".video-container").width("calc( 100% / 12 * 5)");
+    $(".log").width("calc(5 * 100% / 12)");
+    $(".top-row.top-container" ).height("calc( 9 / 16 * 5 / 12 * 100vw + 50px)");
+    $(".bottom-row.bottom-container").height("calc(100vh - 9 / 16 * 5 / 12 * 100vw)");
+    $(".equalizer").width("calc(7 / 12 * 100%)");
+    $(".video-features").width("calc(5 / 12 * 100%)");
+    reload();
 }
