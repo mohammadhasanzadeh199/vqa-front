@@ -39,10 +39,16 @@ let header_data = [
 
 header_data = header_data.reverse();
 
-for (let i = 0; i<header_data.length; i++){
-    let table_row = $(".header tr.source").clone();
-    table_row.removeClass("source");
-    table_row.find(".key").text(header_data[i].key);
-    table_row.find(".value").text(header_data[i].value);
-    table_row.insertAfter(".header tr.source");
+function setHeader (josn){
+    let header_data = josn.data;
+    console.log(header_data);
+    $(".header tbody tr:not(.source)").remove()
+    for (let i = 0; i<header_data.length; i++){
+        let table_row = $(".header tr.source").clone();
+        table_row.removeClass("source");
+        table_row.find(".key").text(header_data[i].key);
+        table_row.find(".value").text(header_data[i].value);
+        table_row.insertAfter(".header tr.source");
+    }
+
 }

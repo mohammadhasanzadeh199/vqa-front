@@ -1,0 +1,16 @@
+.modal-dialog {
+    max-width: none;
+    width: 80%;
+}
+.modal-body {
+    height: 70vh;
+    overflow-y: scroll;
+}
+.equalizer-setting {
+    margin-bottom: 96px;
+}
+.equalizer-slider-container {
+    padding-right: 12px;
+    padding-left: 12px;
+    margin-top: 48px;
+}
