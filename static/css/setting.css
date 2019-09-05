@@ -1,15 +1,15 @@
-.modal-dialog {
+#settingModal .modal-dialog {
     max-width: none;
     width: 80%;
 }
-.modal-body {
+#settingModal .modal-body {
     height: 70vh;
     overflow-y: scroll;
 }
-.equalizer-setting {
+#settingModal .equalizer-setting, .video-features-setting {
     margin-bottom: 96px;
 }
-.equalizer-slider-container {
+#settingModal .equalizer-slider-container, .video-features-slider-container {
     padding-right: 12px;
     padding-left: 12px;
     margin-top: 48px;

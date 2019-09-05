@@ -64,7 +64,8 @@ let initial_data = {
         mute_detection:0,
         pillar_boxing:0
     }
-}
+};
+current_data = initial_data;
 
 setEqualizers(initial_data);
 setCircular(initial_data);
@@ -72,3 +73,7 @@ setNeon(initial_data);
 
 init_equalizer_setting(initial_data);
 init_video_features_setting(initial_data);
+
+function set_current_data(data) {
+    current_data = data;
+}
