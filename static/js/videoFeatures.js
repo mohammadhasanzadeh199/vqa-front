@@ -30,33 +30,14 @@ let options = {
 }
 };
 
-// for ( let i = 0 ; i < 6 ; i++ ){
-//     let chart = $(".video-features .source").clone();
-//     chart.removeClass("source");
-//     chart.insertAfter(".video-features .source");
-//     let canvas = chart.find("canvas");
-//     let ctx = canvas[0].getContext("2d");
+let video_features_setting = null;
+let vf_colors = ["#2b8d00","#ffea00","#ff9c00","#ff5500"];
+let vf_pending_to_log = [];
 
-//     let data = {
-//         datasets: [
-//         {
-//             fill: true,
-//             backgroundColor: [ colors[Math.floor(video_features[i].value/10)],'#b0b0b0'],
-//             data: [video_features[i].value,100-video_features[i].value],
-//             borderColor:	['black', 'black'],
-//             borderWidth: [0,0],
-//             borderAlign:'inner'
-//         }
-//         ]
-//     };
 
-//     let myPieChart = new Chart(ctx, {
-//         labelAlign: 'center',
-//         type: 'doughnut',
-//         data: data,
-//         options: options
-//     });
-// }
+function set_video_features_setting_obj(obj){
+    video_features_setting = obj;
+}
 
 
 function setCircular(json) {
@@ -72,7 +53,7 @@ function setCircular(json) {
             datasets: [
             {
                 fill: true,
-                backgroundColor: [ colors[Math.floor(vf_data[i].value/10)],'#b0b0b0'],
+                backgroundColor: [ vf_map_to_color(vf_data[i].value,vf_data[i].name),'#b0b0b0'],
                 data: [vf_data[i].value,100-vf_data[i].value],
                 borderColor:	['black', 'black'],
                 borderWidth: [0,0],
@@ -91,6 +72,7 @@ function setCircular(json) {
         });
         myPieChart.canvas.parentNode.style.height = '120px';
         myPieChart.canvas.parentNode.style.width = '120px';
+        vf_log_control(vf_data[i].value,vf_data[i].name)
     }
 
 }
@@ -130,4 +112,69 @@ function setNeon(json){
 function setVideoMOS(json){
     let mos = json.data.video_mos;
     $(".video-features .top-part .header .second").text("MOS: "+mos);
+}
+
+
+
+function vf_map_to_color(value, name){
+    let gradiant = [25,50,75];
+    for (let i = 0; i< video_features_setting.length; i++){
+        if (video_features_setting[i].name == name) {
+            gradiant = video_features_setting[i].gradiant;
+        }
+    }
+    if (value<gradiant[0]){
+        return vf_colors[0];
+    } else if (value<gradiant[1]){
+        return vf_colors[1];
+    } else if (value<gradiant[2]){
+        return vf_colors[2];
+    } else {
+        return vf_colors[3];
+    }
+}
+
+
+function vf_log_control(name , value){
+    let treshold_value = 50;
+    for (let i = 0; i< video_features_setting.length; i++){
+        if (video_features_setting[i].name == name) {
+            treshold_value = video_features_setting[i].value;
+        }
+    }
+    let isPending = false;
+    for (let i = 0; i< vf_pending_to_log.length; i++){
+        if (vf_pending_to_log[i].name == name) {
+            isPending = true;
+            if (value < treshold_value){
+                eq_add_to_log(vf_pending_to_log[i].name,vf_pending_to_log[i].start,new Date);
+            }
+        }
+    }
+    if (!isPending && value > treshold_value){
+        vf_pending_to_log.push({
+            name:name,
+            start: new Date()
+        });
+    }
+}
+
+function vf_add_to_log(name,start,end){
+    let start_dt = new Date(start);
+    let start_str = start_dt.getHours() + ":" + start_dt.getMinutes() + ":" + start_dt.getSeconds() + ":" + start_dt.getMilliseconds();
+    let end_dt = new Date(end);
+    let end_str = end_dt.getHours() + ":" + end_dt.getMinutes() + ":" + end_dt.getSeconds() + ":" + end_dt.getMilliseconds();
+    let row = $(".log .source").clone();
+    row.removeClass("source");
+    row.find(".features").text(name);
+    row.find(".start").text(start_str);
+    row.find(".end").text(end_str);
+    row.find(".date").text(start_dt.getFullYear()+"/"+(start_dt.getMonth()+1)+"/"+start_dt.getDate());
+    row.find(".icon").attr("src","/static/pic/icon/loudness.png");
+    row.insertAfter(".log .source");
+    for (let i = 0; i< vf_pending_to_log.length; i++){
+        if (vf_pending_to_log[i].name == name) {
+            vf_pending_to_log.splice(i, 1);
+        }
+    }
 }

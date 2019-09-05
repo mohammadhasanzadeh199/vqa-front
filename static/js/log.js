@@ -72,10 +72,10 @@ let log_date = [
 ];
 
 log_date.reverse();
-for (let i = 0;i<log_date.length;i++){
-    let row = $(".log .source").clone();
-    row.removeClass("source");
-    row.find(".features").text(log_date[i].features);
-    row.find(".icon").attr("src","/static/pic/icon/"+log_date[i].icon);
-    row.insertAfter(".log .source")
-}
+// for (let i = 0;i<log_date.length;i++){
+//     let row = $(".log .source").clone();
+//     row.removeClass("source");
+//     row.find(".features").text(log_date[i].features);
+//     row.find(".icon").attr("src","/static/pic/icon/"+log_date[i].icon);
+//     row.insertAfter(".log .source")
+// }
