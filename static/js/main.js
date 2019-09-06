@@ -33,7 +33,7 @@ function initPlayer() {
         hls.attachMedia(video);
         hls.on(Hls.Events.MEDIA_ATTACHED, function() {
             console.log("video and hls.js are now bound together !");
-            hls.loadSource("https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8");
+            hls.loadSource(__stream_url__);
             hls.on(Hls.Events.MANIFEST_PARSED, function(event, data) {
                 console.log(
                     "manifest loaded, found " +

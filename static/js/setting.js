@@ -1,84 +1,12 @@
 let equalizer_variant_colors = ["#2b8d00","#ffea00","#ff9c00","#ff5500"];
 
 
-let defualt_setting = {
-    equalizer: [
-        {
-            name:"Momentary Loudness",
-            value: 0.5,
-            gradiant:[0.25,0.5,0.75]
-        },
-        {
-            name:"Integrated Loudness",
-            value: 0.5,
-            gradiant:[0.25,0.5,0.75]
-        },
-        {
-            name:"ShortTerm Loudness",
-            value: 0.5,
-            gradiant:[0.25,0.5,0.75]
-        },
-        {
-            name:"LRU Loudness",
-            value: 0.5,
-            gradiant:[0.25,0.5,0.75]
-        },
-        {
-            name:"TPL Loudness",
-            value: 0.5,
-            gradiant:[0.25,0.5,0.75]
-        },
-        {
-            name:"Phase Coherence",
-            value: 0.5,
-            gradiant:[0.25,0.5,0.75]
-        },
-        {
-            name:"Noise Detection",
-            value: 0.5,
-            gradiant:[0.25,0.5,0.75]
-        },
-    ],
-    circular:[
-        {
-            name:"Brightness",
-            value: 50,
-            gradiant:[25,50,75]
-        },
-        {
-            name:"Contrast",
-            value: 50,
-            gradiant:[25,50,75]
-        },
-        {
-            name:"Chroma",
-            value: 50,
-            gradiant:[25,50,75]
-        },
-        {
-            name:"Blockiness",
-            value: 50,
-            gradiant:[25,50,75]
-        },
-        {
-            name:"Blurriness",
-            value: 50,
-            gradiant:[25,50,75]
-        },
-        {
-            name:"Noise estimation",
-            value: 50,
-            gradiant:[25,50,75]
-        },
-    ],
-}
-
 let saved_setting = localStorage.getItem("setting");
 get_storage_handler();
 
 function get_storage_handler(){
     if (saved_setting == null){
-        saved_setting = defualt_setting;
+        saved_setting = __defualt_setting__;
         localStorage.setItem("setting",JSON.stringify(saved_setting));
     } else {
         saved_setting = JSON.parse(saved_setting);
@@ -279,8 +207,8 @@ $('#settingModal').on('hidden.bs.modal', function (e) {
 });
 
 $("#areYouSure .reset").click(function(){
-    saved_setting = defualt_setting;
-    localStorage.setItem("setting",JSON.stringify(defualt_setting));
+    saved_setting = __defualt_setting__;
+    localStorage.setItem("setting",JSON.stringify(__defualt_setting__));
     init_equalizer_setting(current_data);
     init_video_features_setting(current_data);
 })

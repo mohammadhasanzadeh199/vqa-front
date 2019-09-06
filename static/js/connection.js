@@ -1,5 +1,5 @@
 console.log("start")
-websocket = new WebSocket("ws://192.168.43.37:8006/");
+websocket = new WebSocket(__websocket_url__);
 websocket.onopen = function(evt) { console.log(evt); };
 websocket.onclose = function(evt) { console.log(evt) };
 websocket.onmessage = function(evt) {
@@ -19,7 +19,7 @@ websocket.onerror = function(evt) { console.log(evt) };
 
 
 $(".video-container button").click(function (){
-    $('video').attr("src","https://as1.cdn.asset.aparat.com/aparat-video/ac05f607f9fb63b8c63d992d2006e7dc16651944-480p__95366.mp4")
+    // $('video').attr("src","https://as1.cdn.asset.aparat.com/aparat-video/ac05f607f9fb63b8c63d992d2006e7dc16651944-480p__95366.mp4")
     console.log("videourl:"+$(".video-container input").val());
     websocket.send("videourl:"+$(".video-container input").val());
 })
