@@ -3,8 +3,6 @@ let footer_icons = ["loudness.png","loudness.png","loudness.png","loudness.png",
 
 let eq_colors = ["#2b8d00","#ffea00","#ff9c00","#ff5500"];
 
-let rows_num = 15;
-
 let equalizer_setting = null;
 
 let eq_pending_to_log = [];
@@ -13,10 +11,6 @@ let eq_pending_to_log = [];
 function set_equalizer_setting_obj(obj){
     equalizer_setting = obj;
 }
-
-
-
-
 
 
 
@@ -32,10 +26,10 @@ function setEqualizers(json) {
         header.insertAfter(".equalizer .table-header .source");
         let row = $(".equalizer .table-body .table-col.source").clone();
         row.attr("title",eq_data[i].name);
-        for (let j = 0; j<rows_num;j++){
+        for (let j = 0; j<__equalizer_row_num__;j++){
             let body = row.find(".td.source").clone();
             body.removeClass("source");
-            if (j < eq_data[i].value*rows_num){
+            if (j < eq_data[i].value*__equalizer_row_num__){
                 body.find("div").css("background-color",eq_map_to_color(j,eq_data[i].name));
             }
             else {
@@ -56,7 +50,7 @@ function setAudioMOS (json){
 }
 
 function eq_map_to_color(index, name){
-    let new_row_num = rows_num-1;
+    let new_row_num = __equalizer_row_num__-1;
     let gradiant = [0.25,0.5,0.75];
     for (let i = 0; i< equalizer_setting.length; i++){
         if (equalizer_setting[i].name == name) {
@@ -86,7 +80,7 @@ function eq_log_control(name , value){
     for (let i = 0; i< eq_pending_to_log.length; i++){
         if (eq_pending_to_log[i].name == name) {
             isPending = true;
-            if (value < treshold_value){
+            if (value < treshold_value || (new Date() - new Date(eq_pending_to_log[i].start)) > 5000 ){
                 eq_add_to_log(eq_pending_to_log[i].name,eq_pending_to_log[i].start,new Date);
             }
         }
@@ -117,4 +111,11 @@ function eq_add_to_log(name,start,end){
             eq_pending_to_log.splice(i, 1);
         }
     }
+    if ($(".log .scrolable tr").length > __log_box_limit__){
+        $(".log .scrolable tr:last-child").remove();
+    }
 }
+
+$(".log .clear").click(function(){
+    $(".log .scrolable tr:not(.source)").remove();
+})
