@@ -3,7 +3,6 @@ websocket = new WebSocket(__websocket_url__);
 websocket.onopen = function(evt) { console.log(evt); };
 websocket.onclose = function(evt) { console.log(evt) };
 websocket.onmessage = function(evt) {
-    
     let geted_data = JSON.parse(evt.data);
     if (geted_data.type == "header"){
         setHeader(geted_data)

@@ -1,5 +1,5 @@
 var __stream_url__ = "http://192.168.43.37:8081";
-var __websocket_url__ = "ws://192.168.43.37:8016/";
+var __websocket_url__ = "ws://192.168.43.37:8006/";
 
 var __log_box_limit__ = 30;
 var __log_waiting_time__ = 10;

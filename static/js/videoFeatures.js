@@ -135,7 +135,7 @@ function vf_map_to_color(value, name){
 }
 
 
-function vf_log_control(name , value){
+function vf_log_control(value , name){
     let treshold_value = 50;
     for (let i = 0; i< video_features_setting.length; i++){
         if (video_features_setting[i].name == name) {
@@ -146,11 +146,13 @@ function vf_log_control(name , value){
     for (let i = 0; i< vf_pending_to_log.length; i++){
         if (vf_pending_to_log[i].name == name) {
             isPending = true;
-            if (value < treshold_value){
-                eq_add_to_log(vf_pending_to_log[i].name,vf_pending_to_log[i].start,new Date);
+            if (value < treshold_value|| (new Date() - new Date(vf_pending_to_log[i].start)) > 5000){
+                eq_add_to_log(vf_pending_to_log[i].name,vf_pending_to_log[i].start,new Date());
+                console.log(vf_pending_to_log[i].name,new Date()-new Date(vf_pending_to_log[i].start));
             }
         }
     }
+    console.log(!isPending,value,treshold_value)
     if (!isPending && value > treshold_value){
         vf_pending_to_log.push({
             name:name,
