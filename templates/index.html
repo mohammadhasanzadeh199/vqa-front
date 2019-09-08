@@ -33,9 +33,9 @@
         <script id="frontLibsrary" src="{% static 'frontLibs/noUiSlider-14.0.2/nouislider.min.js' %}"></script>
         <script src="{% static 'frontLibs/chart.js' %}"></script>
         <script src="{% static 'frontLibs/chartjs-plugin-doughnutlabel.min.js' %}"></script>
-        <script src="{% static 'frontLibs/videojs/video.min.js' %}"></script>
-        <script src="{% static 'frontLibs/videojs-http-streaming.min.js' %}"></script>
-        <script src="{% static 'frontLibs/jsmpeg.min.js' %}"></script>
+        <!-- <script src="{% static 'frontLibs/videojs/video.min.js' %}"></script> -->
+        <!-- <script src="{% static 'frontLibs/videojs-http-streaming.min.js' %}"></script> -->
+        <!-- <script src="{% static 'frontLibs/jsmpeg.min.js' %}"></script> -->
 
     </head>
 
@@ -69,14 +69,14 @@
                             <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
                             <button type="button" class="btn btn-dark">Start</button>
                         </div>
-                        <div class="jsmpeg" data-url="https://yjc.arvanlive.com/hls/tv2/tv2_360/index.m3u8" data-loop="true" data-autoplay="true"></div>
-                    <!-- <video
+                        <!-- <div class="jsmpeg" progressive="false" data-url="https://yjc.arvanlive.com/hls/tv2/tv2_360/index.m3u8" data-loop="true" data-autoplay="true"></div> -->
+                    <video
                         id="video"
                         controls
                         autoplay
                         data-toggle="tooltip" title="equalizer"
                         class="video"
-                    ></video> -->
+                    ></video>
                 </div>
                 <div class="log">
                     <div style="overflow-y: scroll">
@@ -296,7 +296,7 @@
 
     </body>
     <script src="{% static 'settings.js' %}"></script>
-    <!-- <script src="{% static 'js/main.js' %}"></script> -->
+    <script src="{% static 'js/main.js' %}"></script>
     <script src="{% static 'js/header.js' %}"></script>
     <script src="{% static 'js/log.js' %}"></script>
     <script src="{% static 'js/equalizer.js' %}"></script>
@@ -305,5 +305,5 @@
     <script src="{% static 'js/setting.js' %}"></script>
     <script src="{% static 'js/initialData.js' %}"></script>
     <script src="{% static 'js/connection.js' %}"></script>
-    <script src="{% static 'js/video.js' %}"></script>
+    <!-- <script src="{% static 'js/video.js' %}"></script> -->
 </html>
