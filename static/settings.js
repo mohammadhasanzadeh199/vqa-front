@@ -1,4 +1,4 @@
-var __stream_url__ = "http://192.168.43.37:8081";
+var __stream_url__ = "https://yjc.arvanlive.com/hls/tv2/tv2_360/index.m3u8";
 var __websocket_url__ = "ws://192.168.43.37:8006/";
 
 var __log_box_limit__ = 30;
