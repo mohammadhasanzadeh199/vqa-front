@@ -27,16 +27,10 @@
         <link rel="stylesheet" href="{% static 'css/videoFeatures.css' %}">
         <link rel="stylesheet" href="{% static 'css/setting.css' %}">
         <link rel="stylesheet" href="{% static 'frontLibs/noUiSlider-14.0.2/nouislider.min.css' %}">
-        <link rel="stylesheet" href="{% static 'frontLibs/videojs/video-js.min.css' %}">
-        <script id="frontLibsrary" src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-        <script id="frontLibsrary" src="{% static 'js/id3.js' %}"></script>        
-        <script id="frontLibsrary" src="{% static 'frontLibs/noUiSlider-14.0.2/nouislider.min.js' %}"></script>
+        <script src="{% static 'frontLibs/hls.js' %}"></script>
+        <script src="{% static 'frontLibs/noUiSlider-14.0.2/nouislider.min.js' %}"></script>
         <script src="{% static 'frontLibs/chart.js' %}"></script>
         <script src="{% static 'frontLibs/chartjs-plugin-doughnutlabel.min.js' %}"></script>
-        <!-- <script src="{% static 'frontLibs/videojs/video.min.js' %}"></script> -->
-        <!-- <script src="{% static 'frontLibs/videojs-http-streaming.min.js' %}"></script> -->
-        <!-- <script src="{% static 'frontLibs/jsmpeg.min.js' %}"></script> -->
-
     </head>
 
     <body>
@@ -305,5 +299,4 @@
     <script src="{% static 'js/setting.js' %}"></script>
     <script src="{% static 'js/initialData.js' %}"></script>
     <script src="{% static 'js/connection.js' %}"></script>
-    <!-- <script src="{% static 'js/video.js' %}"></script> -->
 </html>
