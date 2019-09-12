@@ -1,9 +1,6 @@
 var video = document.getElementById("video");
 
 
-var holeData=[];
-var Fragments=[];
-
 
 var current_fragment = {
     timestamp: null,
@@ -11,15 +8,19 @@ var current_fragment = {
     startPTS:null,
     endPTS:null
 }
+var current_fragment_timestamp = null;
+var current_fragment_time = null;
+var current_fragment_startPTS = null;
+var current_fragment_endPTS = null;
 
 var fragment_data = [];
 
 var inited_pts = 0;
 
+var temp_date = new Date();
+
 // initPlayer()
 
-// var id3 = new ID3();
-// console.log(id3)
 
 
 function initPlayer() {
@@ -27,37 +28,22 @@ function initPlayer() {
         let frame_num = 0;
         var hls = new Hls();
         hls.on(Hls.Events.LEVEL_PTS_UPDATED,function(event,data){
-            // holeData.push(data);
-            // let some = data.details.fragments;
-            // for (let index = 0; index < some.length; index++) {
-            //     Fragments.push(some[index])
-            // }
-            // console.log(data);
-            // console.log(holeData);
-            // console.log(Fragments)
-            // frame_num += some;
-            // data = ID3.getTimeStamp(some)
-            // console.log("some new",frame_num)
+            console.log('level',data)
         })
         hls.on(Hls.Events.INIT_PTS_FOUND ,function(event,data){
-            inited_pts = data.initPTS/90000;
-            // console.log("triger",data,data.initPTS/90000)
+            inited_pts = data.initPTS/86400;
+            console.log("triger",inited_pts,new Date())
+            console.log(new Date("Tue Sep 10 2019 23:36:12 GMT-0700 (Pacific Daylight Time)")-new Date("Tue Sep 10 2019 23:37:30 GMT-0700 (Pacific Daylight Time)"));
+            console.log(-9673.724074074074 +9601.349074074074)
+            console.log(144.11666666666497/133)
+            console.log(78/72.375)
+            console.log(-106.26666666666279/106)
         })
-        hls.on(Hls.Events.LEVEL_PTS_UPDATED,function(event,data){
-            // console.log("event",data)
+        hls.on(Hls.Events.BUFFER_CODECS,function(event,data){   
+            console.log("event",data)
         })
         hls.on(Hls.Events.FRAG_PARSING_DATA,function(event,data){
-            // let some = ID3.getID3Data(data.data1,0);
-            // console.log({
-            //     inited_pts:inited_pts,
-            //     fragment_start_pts:data.startPTS,
-            //     fragment_end_pts: data.endPTS,
-            //     startPTS: inited_pts + data.startPTS,
-            //     endPTS: inited_pts + data.endPTS,
-            //     date : new Date()
-            // })
-            // console.log("some hey",video.currentTime,data)
-            // console.log(video)
+            console.log(data.nb/(data.startPTS-data.endPTS))            
         })
 
         // bind them together
@@ -75,13 +61,12 @@ function initPlayer() {
         });
 
         hls.on(Hls.Events.FRAG_CHANGED,function(event,data){
-            // console.log(new Date(),data);
+            // console.log(data)
             current_fragment = {
                 time: new Date(),
-                startPTS: inited_pts + data.startPTS,
-                endPTS: inited_pts + data.endPTS
-            }
-            
+                startPTS: inited_pts + data.frag.startPTS,
+                endPTS: inited_pts + data.frag.startPTS+data.frag.duration,
+            }   
         })
 
         hls.on(Hls.Events.ERROR, function (event, data) {

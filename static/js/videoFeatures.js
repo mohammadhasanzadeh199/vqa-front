@@ -152,7 +152,6 @@ function vf_log_control(value , name){
             }
         }
     }
-    console.log(!isPending,value,treshold_value)
     if (!isPending && value > treshold_value){
         vf_pending_to_log.push({
             name:name,
