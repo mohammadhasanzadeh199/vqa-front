@@ -1,6 +1,3 @@
-
-let footer_icons = ["loudness.png","loudness.png","loudness.png","loudness.png","loudness.png","loudness.png","loudness.png"]
-
 let eq_colors = ["#2b8d00","#ffea00","#ff9c00","#ff5500"];
 
 let equalizer_setting = null;
@@ -13,12 +10,15 @@ function set_equalizer_setting_obj(obj){
 }
 
 
-
+// ====================================================================================================================
+// ------- set recived equalizers data to view. called in connecttion.js. input param is header json ------------------
+// ====================================================================================================================
 function setEqualizers(json) {
-
+    let eq_data = json.data.equalizer;
+    // remove every thing first ........................................................
     $(".equalizer .table-header .th:not(.source)").remove();
     $(".equalizer .table-body .table-col:not(.source)").remove();
-    let eq_data = json.data.equalizer;
+    // now create each column ..........................................................
     for (let i = 0; i<eq_data.length;i++){
         let header = $(".equalizer .table-header .source").clone();
         header.text(Math.round(eq_data[i].value * 100) / 100);
@@ -26,31 +26,43 @@ function setEqualizers(json) {
         header.insertAfter(".equalizer .table-header .source");
         let row = $(".equalizer .table-body .table-col.source").clone();
         row.attr("title",eq_data[i].name);
+        // render each column row ......................................................
         for (let j = 0; j<__equalizer_row_num__;j++){
             let body = row.find(".td.source").clone();
             body.removeClass("source");
-            if (j < eq_data[i].value*__equalizer_row_num__){
+            if (j < eq_data[i].value*__equalizer_row_num__){ // enable cell ............
                 body.find("div").css("background-color",eq_map_to_color(j,eq_data[i].name));
             }
-            else {
+            else { // disable cell .....................................................
                 body.find("div").css("background-color","#383838");
                 body.find("div").css("box-shadow", "0px 2px 8px 0px #161616 inset")
             }
             body.insertAfter(row.find(".td.source"));
         }
+        // log control .................................................................
         eq_log_control(eq_data[i].name,eq_data[i].value)
         row.removeClass("source");
         row.insertAfter(".equalizer .table-body .table-col.source")
     }
 }
 
+
+// ====================================================================================================================
+// ------- set recived mos data to view. called in connecttion.js. input param is data json ---------------------------
+// ====================================================================================================================
 function setAudioMOS (json){
     let mos = json.data.audio_mos;
     $(".equalizer .equalizer-header .second").text("MOS: "+mos);
 }
 
+
+// ====================================================================================================================
+// ------- determin cell color by setting. called in setEqualizers function -------------------------------------------
+// ====================================================================================================================
 function eq_map_to_color(index, name){
+    // index of cell in column , name of column (audio feature) ..........................
     let new_row_num = __equalizer_row_num__-1;
+    // defualt gradiant ..................................................................
     let gradiant = [0.25,0.5,0.75];
     for (let i = 0; i< equalizer_setting.length; i++){
         if (equalizer_setting[i].name == name) {

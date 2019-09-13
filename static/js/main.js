@@ -1,25 +1,20 @@
 var video = document.getElementById("video");
 
-
-
 var current_fragment = {
     timestamp: null,
     time:null,
     startPTS:null,
     endPTS:null
 }
-var current_fragment_timestamp = null;
-var current_fragment_time = null;
-var current_fragment_startPTS = null;
-var current_fragment_endPTS = null;
 
 var fragment_data = [];
 
 var inited_pts = 0;
+var progresive_pts = 0;
 
-var temp_date = new Date();
+var loaded_fragment_additional_data = [];
 
-// initPlayer()
+initPlayer()
 
 
 
@@ -28,22 +23,19 @@ function initPlayer() {
         let frame_num = 0;
         var hls = new Hls();
         hls.on(Hls.Events.LEVEL_PTS_UPDATED,function(event,data){
-            console.log('level',data)
+            // console.log('level',data)
         })
         hls.on(Hls.Events.INIT_PTS_FOUND ,function(event,data){
-            inited_pts = data.initPTS/86400;
+            inited_pts = progresive_pts = data.initPTS/90000;
             console.log("triger",inited_pts,new Date())
-            console.log(new Date("Tue Sep 10 2019 23:36:12 GMT-0700 (Pacific Daylight Time)")-new Date("Tue Sep 10 2019 23:37:30 GMT-0700 (Pacific Daylight Time)"));
-            console.log(-9673.724074074074 +9601.349074074074)
-            console.log(144.11666666666497/133)
-            console.log(78/72.375)
-            console.log(-106.26666666666279/106)
         })
-        hls.on(Hls.Events.BUFFER_CODECS,function(event,data){   
-            console.log("event",data)
-        })
-        hls.on(Hls.Events.FRAG_PARSING_DATA,function(event,data){
-            console.log(data.nb/(data.startPTS-data.endPTS))            
+        hls.on(Hls.Events.FRAG_PARSING_DATA,function(event,data){  
+            if (data.type == "video"){
+                loaded_fragment_additional_data.push({
+                    nb: data.nb,
+                    sn: data.frag.sn
+                });
+            }
         })
 
         // bind them together
@@ -61,12 +53,19 @@ function initPlayer() {
         });
 
         hls.on(Hls.Events.FRAG_CHANGED,function(event,data){
-            // console.log(data)
-            current_fragment = {
-                time: new Date(),
-                startPTS: inited_pts + data.frag.startPTS,
-                endPTS: inited_pts + data.frag.startPTS+data.frag.duration,
-            }   
+            inited_pts = progresive_pts;
+            for (let i=0; i < loaded_fragment_additional_data.length; i++){
+                if ( loaded_fragment_additional_data[i].sn == data.frag.sn ) {
+                    current_fragment = {
+                        time: new Date(),
+                        duration:data.frag.duration,
+                        nb: loaded_fragment_additional_data[i].nb
+                    }
+                    loaded_fragment_additional_data.splice(i,1);   
+                    console.log(current_fragment,loaded_fragment_additional_data);
+                }
+            }
+            
         })
 
         hls.on(Hls.Events.ERROR, function (event, data) {
@@ -84,14 +83,4 @@ function download(content, fileName, contentType) {
     a.download = fileName;
     a.click();
 }
-// $(".header").click( 
-//     function(){
-//         download(JSON.stringify(holeData), 'data.txt', 'text/plain')
-//     }
-// )
-// $(".log").click( 
-//     function(){
-//         download(JSON.stringify(Fragments), 'fragments.txt', 'text/plain')
-//     }
-// )
 

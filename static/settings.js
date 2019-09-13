@@ -79,3 +79,58 @@ var __defualt_setting__ = {
         },
     ],
 }
+
+__icon_packes__ = [
+    {
+        name:"Momentary Loudness",
+        value: ""
+    },
+    {
+        name:"Integrated Loudness",
+        value: ""
+    },
+    {
+        name:"ShortTerm Loudness",
+        value: ""
+    },
+    {
+        name:"LRU Loudness",
+        value: ""
+    },
+    {
+        name:"TPL Loudness",
+        value: ""
+    },
+    {
+        name:"Phase Coherence",
+        value: "Phase-Coherence.png"
+    },
+    {
+        name:"Noise Detection",
+        value: "Noise_Detection.png"
+    },
+    {
+        name:"Brightness",
+        value:"Brightness.png"
+    },
+    {
+        name:"Contrast",
+        value:"Contrast.png"
+    },
+    {
+        name:"Chroma",
+        value:"Chroma.png"
+    },
+    {
+        name:"Blockiness",
+        value:"Blockiness.png"
+    },
+    {
+        name:"Blurriness",
+        value:"Bluriness.png"
+    },
+    {
+        name:"Noise estimation",
+        value:"Noise Estimation.png"
+    },
+];
