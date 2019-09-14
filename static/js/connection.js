@@ -56,8 +56,6 @@ function syncPlay(geted_data){
     progresive_pts = now;
     let selected_data = null;
     let selected_index = null;
-    console.log("data",now,geted_data.data.timestamp);
-    console.log("diff",now-geted_data.data.timestamp);
     for ( let i = 0; i < stored_data.length; i++ ){
         let timestamp = stored_data[i].data.timestamp;
         if ( timestamp >= now - __sync_play_ignore_time__[0] && timestamp <= now + __sync_play_ignore_time__[1] ){
@@ -75,6 +73,8 @@ function syncPlay(geted_data){
     }
     
     if ( selected_data != null ){
+        console.log("data",now,selected_data.data.timestamp);
+        console.log("diff",now-selected_data.data.timestamp);
         setEqualizers(selected_data);
         setCircular(selected_data);
         setNeon(selected_data);
