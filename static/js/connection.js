@@ -21,6 +21,7 @@ function init_connection(){
 // ------- websocket given data handler (check is header or log data) -------------------------------------------------
 // ====================================================================================================================
 function websocket_onmessage_handler(evt){
+    console.log("is active")
     let geted_data = JSON.parse(evt.data);
     if (geted_data.type == "header"){
         setHeader(geted_data)
