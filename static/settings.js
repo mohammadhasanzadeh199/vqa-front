@@ -1,11 +1,16 @@
-var __stream_url__ = "http://demo-livemedia.irib.ir:1935/temp-test/tv3.stream/live.m3u8";
+var __stream_url__ = "http://demo-livemedia.irib.ir:1935/temp-test/tv2.stream/live.m3u8";
 var __websocket_url__ = "ws://192.168.43.37:8007/";
-var __sync_play_ignore_time__ = [2,2];
-var __sync_play_stored_data_num__ = 20;
+var __sync_play_ignore_time__ = [200,200];
+var __sync_play_stored_data_num__ = 300;
 var __log_box_limit__ = 30;
 var __log_waiting_time__ = 10;
 
 var __equalizer_row_num__ = 15;
+
+var __delay_estimate_sample_num__ = 350;
+var __delay_estimate_mean_ignore__ = 1;
+var __fix_delay__ = 1;
+var __delay_estimate_std_ignore__= 300;
 
 
 var __defualt_setting__ = {
