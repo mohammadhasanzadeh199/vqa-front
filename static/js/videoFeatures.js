@@ -148,7 +148,6 @@ function vf_log_control(value , name){
             isPending = true;
             if (value < treshold_value|| (new Date() - new Date(vf_pending_to_log[i].start)) > 5000){
                 eq_add_to_log(vf_pending_to_log[i].name,vf_pending_to_log[i].start,new Date());
-                console.log(vf_pending_to_log[i].name,new Date()-new Date(vf_pending_to_log[i].start));
             }
         }
     }

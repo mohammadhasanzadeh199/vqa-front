@@ -12,6 +12,7 @@ var fragment_data = [];
 var inited_pts = 0;
 var progresive_pts = 0;
 var video_delay = 0;
+var current_play_data_timestamp = null;
 
 var loaded_fragment_additional_data = [];
 
@@ -93,21 +94,23 @@ function syncPlay(){
     let selected_index = null;
     for ( let i = 0; i < stored_data.length; i++ ){
         let timestamp = stored_data[i].data.timestamp;
-        if (selected_data == null || Math.abs(now - selected_data.timestamp) >= Math.abs(now-timestamp)){
+        if ( stored_data[i].data.timestamp < now ) {
+            stored_data.splice(i, 1);
+        } else if (selected_data == null || Math.abs(now - selected_data.timestamp) >= Math.abs(now-timestamp)){
             selected_data = stored_data[i];
             selected_index = i;
         }
     }
-    
-    if ( selected_data != null ){
-        delay_controll(now,selected_data.timestamp)
-        // console.log("data",now,selected_data.data.timestamp);
-        // console.log("diff",now-selected_data.data.timestamp);
+    if ( selected_data != null && current_play_data_timestamp !=  selected_data.timestamp){
+        console.log("data",now,selected_data.data.timestamp);
+        console.log("diff",now-selected_data.data.timestamp);
+        current_play_data_timestamp = selected_data.timestamp;
         setEqualizers(selected_data);
         setCircular(selected_data);
         setNeon(selected_data);
         setVideoMOS(selected_data);
         setAudioMOS(selected_data);
+        // delay_controll(now,selected_data.timestamp);
         stored_data.splice(selected_index, 1);
     }
     while(stored_data.length>__sync_play_stored_data_num__){

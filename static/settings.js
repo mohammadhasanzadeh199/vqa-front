@@ -1,4 +1,4 @@
-var __stream_url__ = "http://demo-livemedia.irib.ir:1935/temp-test/tv2.stream/live.m3u8";
+var __stream_url__ = "http://demo-livemedia.irib.ir:1935/temp-test/tv3.stream/live.m3u8";
 var __websocket_url__ = "ws://192.168.43.37:8007/";
 var __sync_play_ignore_time__ = [200,200];
 var __sync_play_stored_data_num__ = 1000;
