@@ -102,8 +102,8 @@ function syncPlay(){
         }
     }
     if ( selected_data != null && current_play_data_timestamp !=  selected_data.data.timestamp){
-        console.log("data",now,selected_data.data.timestamp);
-        console.log("diff",now-selected_data.data.timestamp);
+        // console.log("data",now,selected_data.data.timestamp);
+        // console.log("diff",now-selected_data.data.timestamp);
         current_play_data_timestamp = selected_data.timestamp;
         setEqualizers(selected_data);
         setCircular(selected_data);
