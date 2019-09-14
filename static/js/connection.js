@@ -39,7 +39,7 @@ function websocket_onmessage_handler(evt){
 // ------- on start button click handler. need to send url to give data -----------------------------------------------
 // ====================================================================================================================
 $(".video-container button").click(function (){
-    $('video').attr("src",$(".video-container input").val())
+    // $('video').attr("src",$(".video-container input").val())
     console.log("videourl:"+$(".video-container input").val());
     websocket.send("videourl:"+$(".video-container input").val());
 });
