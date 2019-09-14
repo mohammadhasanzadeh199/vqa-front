@@ -22,13 +22,13 @@ initPlayer()
 
 function initPlayer() {
     if (Hls.isSupported()) {
-        let frame_num = 0;
         var hls = new Hls();
-        hls.on(Hls.Events.LEVEL_PTS_UPDATED,function(event,data){
-            // console.log('level',data)
-        });
         hls.on(Hls.Events.INIT_PTS_FOUND ,function(event,data){
-            inited_pts = progresive_pts = data.initPTS/90000;
+            if (data.initPTS>0){
+                inited_pts = progresive_pts = data.initPTS/90000;
+            }else {
+                inited_pts = progresive_pts = (data.initPTS + Math.pow(2,33))/90000;
+            }
             console.log("triger",inited_pts,new Date())
         });
         hls.on(Hls.Events.FRAG_PARSING_DATA,function(event,data){  
