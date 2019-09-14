@@ -51,7 +51,8 @@ $(".video-container button").click(function (){
 function syncPlay(geted_data){
     let data = geted_data.data;// log data
     stored_data.push(geted_data); // first need to push to data collection
-    let now = (new Date() - new Date(current_fragment.time)) / current_fragment.duration * current_fragment.nb / data.frame_rate;
+    let now = (new Date() - new Date(current_fragment.time))/ 1000 / current_fragment.duration * current_fragment.nb / data.frame_rate;
+    now += inited_pts;
     progresive_pts = now;
     let selected_data = null;
     let selected_index = null;
