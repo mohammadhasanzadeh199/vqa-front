@@ -102,15 +102,15 @@ function syncPlay(){
         }
     }
     if ( selected_data != null && current_play_data_timestamp !=  selected_data.data.timestamp){
-        // console.log("data",now,selected_data.data.timestamp);
-        // console.log("diff",now-selected_data.data.timestamp);
+        console.log("data",now,selected_data.data.timestamp);
+        console.log("diff",now-selected_data.data.timestamp);
         current_play_data_timestamp = selected_data.timestamp;
         setEqualizers(selected_data);
         setCircular(selected_data);
         setNeon(selected_data);
         setVideoMOS(selected_data);
         setAudioMOS(selected_data);
-        // delay_controll(now,selected_data.timestamp);
+        delay_controll(now,selected_data.timestamp);
         stored_data.splice(selected_index, 1);
     }
     while(stored_data.length>__sync_play_stored_data_num__){
