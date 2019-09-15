@@ -92,7 +92,7 @@ function syncPlay(){
     progresive_pts = now;
     let selected_data = null;
     let selected_index = null;
-    for ( let i = 0; i < stored_data.length; i++ ){{
+    for ( let i = 0; i < stored_data.length; i++ ){
         if ( stored_data[i].data.timestamp < now ) {
             stored_data.splice(i, 1);
         }
