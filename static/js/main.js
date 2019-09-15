@@ -92,11 +92,14 @@ function syncPlay(){
     progresive_pts = now;
     let selected_data = null;
     let selected_index = null;
-    for ( let i = 0; i < stored_data.length; i++ ){
-        let timestamp = stored_data[i].data.timestamp;
+    for ( let i = 0; i < stored_data.length; i++ ){{
         if ( stored_data[i].data.timestamp < now ) {
             stored_data.splice(i, 1);
-        } else if (selected_data == null || Math.abs(now - selected_data.data.timestamp) >= Math.abs(now-timestamp)){
+        }
+    }
+    for ( let i = 0; i < stored_data.length; i++ ){
+        let timestamp = stored_data[i].data.timestamp;
+        if (selected_data == null || Math.abs(now - selected_data.data.timestamp) >= Math.abs(now-timestamp)){
             selected_data = stored_data[i];
             selected_index = i;
         }
@@ -104,6 +107,7 @@ function syncPlay(){
     if ( selected_data != null && current_play_data_timestamp !=  selected_data.data.timestamp){
         console.log("data",now,selected_data.data.timestamp);
         console.log("diff",now-selected_data.data.timestamp);
+        console.log("size",stored_data.length);
         current_play_data_timestamp = selected_data.timestamp;
         setEqualizers(selected_data);
         setCircular(selected_data);
