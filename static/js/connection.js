@@ -1,8 +1,6 @@
 // ------- data queue to store data for sync playing ------------------------------------------------------------------
 var stored_data = [];
 var current_frame_rate = null;
-
-
 // ------- launch websocket connection --------------------------------------------------------------------------------
 init_connection();
 
@@ -26,6 +24,7 @@ function websocket_onmessage_handler(evt){
     if (geted_data.type == "header"){
         setHeader(geted_data)
     } else {
+        console.log("recived",geted_data.data.timestamp);
         // console.log(geted_data);
         stored_data.push(geted_data); 
         current_frame_rate = geted_data.data.frame_rate;

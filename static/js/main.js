@@ -90,11 +90,14 @@ function syncPlay(){
     let now = (new Date() - new Date(current_fragment.time) - video_delay)/ 1000 / current_fragment.duration * current_fragment.nb / current_frame_rate;
     now += inited_pts;
     progresive_pts = now;
+    console.log(now);
     let selected_data = null;
     let selected_index = null;
     for ( let i = 0; i < stored_data.length; i++ ){
         if ( stored_data[i].data.timestamp < now ) {
             stored_data.splice(i, 1);
+            console.log("delete",i)
+            i--;
         }
     }
     for ( let i = 0; i < stored_data.length; i++ ){
