@@ -42,6 +42,9 @@ function websocket_onmessage_handler(evt){
 // ====================================================================================================================
 $(".video-container button").click(function (){
     // $('video').attr("src",$(".video-container input").val())
+    setTimeout(function(){
+        initPlayer();
+    },5000)
     console.log("videourl:"+$(".video-container input").val());
     websocket.send("videourl:"+$(".video-container input").val());
 });

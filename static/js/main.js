@@ -16,9 +16,6 @@ var inited_backend_time = null;
 
 var loaded_fragment_additional_data = [];
 
-setTimeout(function(){
-    initPlayer();
-},5000)
 
 function initPlayer() {
     if (Hls.isSupported()) {
