@@ -101,7 +101,7 @@ video.addEventListener('timeupdate',function(e){
 
 function syncPlay(){
     console.log(current_fragment.startPTS,(new Date()).valueOf() - current_fragment.time, inited_backend_time)
-    let now = current_fragment.startPTS + (new Date()).valueOf() - current_fragment.time - video_delay + inited_backend_time;
+    let now = current_fragment.startPTS + (new Date()).valueOf() - current_fragment.time - video_delay + Number(inited_backend_time);
     let selected_data = null;
     let selected_index = null;
     for ( let i = 0; i < stored_data.length; i++ ){
