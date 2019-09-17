@@ -127,7 +127,7 @@ function syncPlay(){
         setNeon(selected_data);
         setVideoMOS(selected_data);
         setAudioMOS(selected_data);
-        // delay_controll(now,selected_data.timestamp);
+        delay_controll(now,selected_data.data.time);
         stored_data.splice(selected_index, 1);
     }
     while(stored_data.length>__sync_play_stored_data_num__){
@@ -155,19 +155,20 @@ function stored_data_controle(){
 
 let diff_arr = [];
 function delay_controll(client_ts,server_ts){
-    if (diff_arr < __delay_estimate_sample_num__ ) {
+    if (diff_arr.length < __delay_estimate_sample_num__ ) {
         diff_arr.push(client_ts-server_ts);
     } else {
         let result = statistics(diff_arr);
+        console.log("result",result);
         let mean = result[0];
         let std = result[1];
         if (mean > Math.abs(__delay_estimate_mean_ignore__) && std < Math.abs(__delay_estimate_std_ignore__)){
-            video.pause();
             diff_arr = [];
-            video_delay = ( mean - __fix_delay__ ) * 1000;
+            video_delay = ( mean - __fix_delay__ );
+            video.pause();
             setTimeout(() => {
                 video.play();
-            },  ( mean - __fix_delay__ ) * 1000);
+            },  mean - __fix_delay__ );
         }
     }
 }
