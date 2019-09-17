@@ -37,7 +37,7 @@ function initPlayer() {
                 }
             }
             if (selected_data != null) {
-                inited_backend_time = stored_data[i].data.time;
+                inited_backend_time = selected_data.data.time;
                 console.log("triger",data.initPTS,selected_data.data.timestamp - inited_pts);
             }
         });
