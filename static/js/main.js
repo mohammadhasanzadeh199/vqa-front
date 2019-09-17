@@ -70,7 +70,7 @@ function initPlayer() {
             video_delay = 0;
             current_fragment = {
                 startPTS: current_fragment.endPTS,
-                endPTS:current_fragment.endPTS + data.frag.duration,
+                endPTS:current_fragment.endPTS + data.frag.duration*1000,
                 time: (new Date()).valueOf()
             }
             console.log(current_fragment)
@@ -103,7 +103,7 @@ video.addEventListener('timeupdate',function(e){
 // console.log((-2985513952+ 2998947712)/(1568732567627-1568732411686)*1000);
 
 function syncPlay(){
-    let now = ((new Date()).valueOf() - current_fragment.time - video_delay) + inited_backend_time;
+    let now = current_fragment.startPTS (new Date()).valueOf() - current_fragment.time - video_delay + inited_backend_time;
     let selected_data = null;
     let selected_index = null;
     for ( let i = 0; i < stored_data.length; i++ ){
