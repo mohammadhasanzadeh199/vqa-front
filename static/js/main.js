@@ -35,7 +35,7 @@ function initPlayer() {
             }
             if (selected_data != null) {
                 inited_backend_time = selected_data.data.time;
-                console.log("triger",data.initPTS,selected_data.data.timestamp - inited_pts);
+                console.log("triger",data.initPTS,selected_data.data.timestamp - inited_pts, inited_backend_time);
             }
         });
 
@@ -100,6 +100,7 @@ video.addEventListener('timeupdate',function(e){
 // console.log((-2985513952+ 2998947712)/(1568732567627-1568732411686)*1000);
 
 function syncPlay(){
+    console.log(current_fragment.startPTS,(new Date()).valueOf() - current_fragment.time, inited_backend_time)
     let now = current_fragment.startPTS + (new Date()).valueOf() - current_fragment.time - video_delay + inited_backend_time;
     let selected_data = null;
     let selected_index = null;
