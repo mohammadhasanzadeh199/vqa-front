@@ -3,42 +3,54 @@ var video = document.getElementById("video");
 var current_fragment = {
     timestamp: null,
     time:null,
-    startPTS:null,
-    endPTS:null
+    startPTS: 0,
+    endPTS:0
 }
 
 var fragment_data = [];
 
 var inited_pts = 0;
-var progresive_pts = 0;
 var video_delay = 0;
 var current_play_data_timestamp = null;
+var inited_backend_time = null;
 
 var loaded_fragment_additional_data = [];
 
-initPlayer()
-
-
+setTimeout(function(){
+    initPlayer();
+},5000)
 
 function initPlayer() {
     if (Hls.isSupported()) {
-        var hls = new Hls();
+        var hls = new Hls({});
         hls.on(Hls.Events.INIT_PTS_FOUND ,function(event,data){
             if (data.initPTS>0){
                 inited_pts = progresive_pts = data.initPTS/90000;
             }else {
                 inited_pts = progresive_pts = (data.initPTS + Math.pow(2,33))/90000;
             }
-            console.log("triger",inited_pts,new Date())
-        });
-        hls.on(Hls.Events.FRAG_PARSING_DATA,function(event,data){  
-            if (data.type == "video"){
-                loaded_fragment_additional_data.push({
-                    nb: data.nb,
-                    sn: data.frag.sn
-                });
+            let selected_data = null;
+            for ( let i = 0; i < stored_data.length; i++ ){
+                let timestamp = stored_data[i].data.timestamp;
+                if (selected_data == null || Math.abs(inited_pts - selected_data.data.timestamp) >= Math.abs(inited_pts - timestamp)){
+                    selected_data = stored_data[i];
+                }
+            }
+            if (selected_data != null) {
+                inited_backend_time = stored_data[i].data.time;
+                console.log("triger",data.initPTS,selected_data.data.timestamp - inited_pts);
             }
         });
+
+        // hls.on(Hls.Events.FRAG_PARSING_DATA,function(event,data){  
+        //     if (data.type == "video"){
+        //         loaded_fragment_additional_data.push({
+        //             nb: data.nb,
+        //             sn: data.frag.sn
+        //         });
+        //     }
+        // });
+
 
         // bind them together
         hls.attachMedia(video);
@@ -55,20 +67,13 @@ function initPlayer() {
         });
 
         hls.on(Hls.Events.FRAG_CHANGED,function(event,data){
-            inited_pts = progresive_pts;
-            for (let i=0; i < loaded_fragment_additional_data.length; i++){
-                if ( loaded_fragment_additional_data[i].sn == data.frag.sn ) {
-                    video_delay = 0;
-                    current_fragment = {
-                        time: new Date(),
-                        duration:data.frag.duration,
-                        nb: loaded_fragment_additional_data[i].nb
-                    }
-                    loaded_fragment_additional_data.splice(i,1);   
-                    console.log(current_fragment,loaded_fragment_additional_data);
-                }
+            video_delay = 0;
+            current_fragment = {
+                startPTS: current_fragment.endPTS,
+                endPTS:current_fragment.endPTS + data.frag.duration,
+                time: (new Date()).valueOf()
             }
-            
+            console.log(current_fragment)
         });
 
         hls.on(Hls.Events.ERROR, function (event, data) {
@@ -77,10 +82,8 @@ function initPlayer() {
     }
 }
 
-let pre = new Date()
-video.addEventListener('timeupdate',function(){
-    console.log(new Date() - pre);
-    pre = new Date()
+video.addEventListener('timeupdate',function(e){
+    // console.log(video.captureStream().getVideoTracks()[0].getSettings().frameRate)
     syncPlay();
 })
 
@@ -88,31 +91,37 @@ video.addEventListener('timeupdate',function(){
 // ====================================================================================================================
 // ------- syncing algorithem, set data to view according to playing frame --------------------------------------------
 // ====================================================================================================================
+// console.log(39317.19059528302-39395.86072173524)
+// console.log(new Date("Mon Sep 16 2019 06:17:40 GMT-0700 (Pacific Daylight Time)")-new Date("Mon Sep 16 2019 06:19:00 GMT-0700 (Pacific Daylight Time)"))
+// console.log(39413.924536454855-39602.06438403859)
+// console.log(new Date("Mon Sep 16 2019 06:19:23 GMT-0700 (Pacific Daylight Time)")-new Date("Mon Sep 16 2019 06:22:32 GMT-0700 (Pacific Daylight Time)"))
+// console.log(39673.52685581395-40008.19439546027)
+// console.log(new Date("Mon Sep 16 2019 06:23:44 GMT-0700 (Pacific Daylight Time)")-new Date('Mon Sep 16 2019 06:29:23 GMT-0700 (Pacific Daylight Time)'))
+// console.log("rrrrrrrrrrr");
+// console.log((3143729332- 3134860372)/(1568730925223-1568730821714)*1000);
+// console.log((3265196932- 3250760932)/(1568732277966-1568732116226)*1000);
+// console.log((-2985513952+ 2998947712)/(1568732567627-1568732411686)*1000);
+
 function syncPlay(){
-    let now = (new Date() - new Date(current_fragment.time) - video_delay)/ 1000 / current_fragment.duration * current_fragment.nb / current_frame_rate;
-    now += inited_pts;
-    progresive_pts = now;
+    let now = ((new Date()).valueOf() - current_fragment.time - video_delay) + inited_backend_time;
     let selected_data = null;
     let selected_index = null;
     for ( let i = 0; i < stored_data.length; i++ ){
-        if ( stored_data[i].data.timestamp < now ) {
-            console.log("delete",stored_data.length)
-            console.log("delete",i)
+        if ( stored_data[i].data.time < now ) {
             stored_data.splice(i, 1);
-            console.log("delete",stored_data.length)
             i--;
         }
     }
     for ( let i = 0; i < stored_data.length; i++ ){
-        let timestamp = stored_data[i].data.timestamp;
-        if (selected_data == null || Math.abs(now - selected_data.data.timestamp) >= Math.abs(now-timestamp)){
+        let time = stored_data[i].data.time;
+        if (selected_data == null || Math.abs(now - selected_data.data.time) >= Math.abs(now - time)){
             selected_data = stored_data[i];
             selected_index = i;
         }
     }
     if ( selected_data != null && current_play_data_timestamp !=  selected_data.data.timestamp){
-        console.log("data",now,selected_data.data.timestamp);
-        console.log("diff",now-selected_data.data.timestamp);
+        console.log("data",now,selected_data.data.time);
+        console.log("diff",now-selected_data.data.time);
         console.log("size",stored_data.length);
         current_play_data_timestamp = selected_data.timestamp;
         setEqualizers(selected_data);
@@ -120,7 +129,7 @@ function syncPlay(){
         setNeon(selected_data);
         setVideoMOS(selected_data);
         setAudioMOS(selected_data);
-        delay_controll(now,selected_data.timestamp);
+        // delay_controll(now,selected_data.timestamp);
         stored_data.splice(selected_index, 1);
     }
     while(stored_data.length>__sync_play_stored_data_num__){
@@ -177,4 +186,26 @@ function statistics( arr ){
     }
     std = std / arr.length;
     return [mean, std];
+}
+
+
+
+function fake_render(){
+    $("#fake_video").remove();
+    let element = $("<video autoplay ></video>");
+    element.attr("id","fake_video");
+    element.css({
+        "display":"none"
+    });
+    $('body').append(element);
+    let fake_video = document.getElementById("fake_video");
+    let fake_hls = new Hls({maxBufferLength:0});
+    fake_hls.on(Hls.Events.INIT_PTS_FOUND ,function(event,data){
+        console.log("pts",data.initPTS/90000,(new Date()).valueOf()/1000);
+    });
+    fake_hls.attachMedia(fake_video);
+    fake_hls.on(Hls.Events.MEDIA_ATTACHED, function() {
+        // console.log("video and hls.js are now bound together !");
+        fake_hls.loadSource(__stream_url__);
+    });
 }
