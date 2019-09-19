@@ -19,7 +19,7 @@ var loaded_fragment_additional_data = [];
 
 function initPlayer() {
     if (Hls.isSupported()) {
-        var hls = new Hls({});
+        var hls = new Hls();
         hls.on(Hls.Events.INIT_PTS_FOUND ,function(event,data){
             if (data.initPTS>0){
                 inited_pts = progresive_pts = data.initPTS/90000;
@@ -175,11 +175,11 @@ function delay_controll(client_ts){
         if (mean > Math.abs(__delay_estimate_mean_ignore__) && std < Math.abs(__delay_estimate_std_ignore__)){
             console.log("need to shift ...................................................")
             diff_arr = [];
-            video_delay = ( mean - __fix_delay__ );
+            video_delay = mean - __fix_delay__ ;
             video.pause();
             setTimeout(() => {
                 video.play();
-            },  mean - __fix_delay__ );
+            },  video_delay );
         }
     }
 }
