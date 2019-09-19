@@ -100,8 +100,8 @@ video.addEventListener('timeupdate',function(e){
 // console.log((-2985513952+ 2998947712)/(1568732567627-1568732411686)*1000);
 
 function syncPlay(){
-    console.log(current_fragment.startPTS,(new Date()).valueOf() - current_fragment.time, inited_backend_time)
     let now = current_fragment.startPTS + (new Date()).valueOf() - current_fragment.time - video_delay + Number(inited_backend_time);
+    delay_controll(now);
     let selected_data = null;
     let selected_index = null;
     for ( let i = 0; i < stored_data.length; i++ ){
@@ -127,7 +127,6 @@ function syncPlay(){
         setNeon(selected_data);
         setVideoMOS(selected_data);
         setAudioMOS(selected_data);
-        delay_controll(now,selected_data.data.time);
         stored_data.splice(selected_index, 1);
     }
     while(stored_data.length>__sync_play_stored_data_num__){
@@ -154,9 +153,18 @@ function stored_data_controle(){
 
 
 let diff_arr = [];
-function delay_controll(client_ts,server_ts){
+function delay_controll(client_ts){
     if (diff_arr.length < __delay_estimate_sample_num__ ) {
-        diff_arr.push(client_ts-server_ts);
+        let selected_data = null;
+        for ( let i = 0; i < stored_data.length; i++ ){
+            let time = stored_data[i].data.time;
+            if (selected_data == null || Math.abs(now - selected_data.data.time) >= Math.abs(now - time)){
+                selected_data = stored_data[i];
+            }
+        }
+        if (selected_data != null){
+            diff_arr.push(client_ts-selected_data.data.time);
+        }
     } else {
         let result = statistics(diff_arr);
         console.log("result",result);
