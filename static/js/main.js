@@ -167,10 +167,12 @@ function delay_controll(client_ts){
         }
     } else {
         let result = statistics(diff_arr);
+        console.log("start shifting .....................................................")
         console.log("result",result);
         let mean = result[0];
         let std = result[1];
         if (mean > Math.abs(__delay_estimate_mean_ignore__) && std < Math.abs(__delay_estimate_std_ignore__)){
+            console.log("need to shift ...................................................")
             diff_arr = [];
             video_delay = ( mean - __fix_delay__ );
             video.pause();
@@ -193,26 +195,4 @@ function statistics( arr ){
     }
     std = std / arr.length;
     return [mean, std];
-}
-
-
-
-function fake_render(){
-    $("#fake_video").remove();
-    let element = $("<video autoplay ></video>");
-    element.attr("id","fake_video");
-    element.css({
-        "display":"none"
-    });
-    $('body').append(element);
-    let fake_video = document.getElementById("fake_video");
-    let fake_hls = new Hls({maxBufferLength:0});
-    fake_hls.on(Hls.Events.INIT_PTS_FOUND ,function(event,data){
-        console.log("pts",data.initPTS/90000,(new Date()).valueOf()/1000);
-    });
-    fake_hls.attachMedia(fake_video);
-    fake_hls.on(Hls.Events.MEDIA_ATTACHED, function() {
-        // console.log("video and hls.js are now bound together !");
-        fake_hls.loadSource(__stream_url__);
-    });
 }
