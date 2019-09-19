@@ -158,11 +158,12 @@ function delay_controll(client_ts){
         let selected_data = null;
         for ( let i = 0; i < stored_data.length; i++ ){
             let time = stored_data[i].data.time;
-            if (selected_data == null || Math.abs(now - selected_data.data.time) >= Math.abs(now - time)){
+            if (selected_data == null || Math.abs(client_ts - selected_data.data.time) >= Math.abs(client_ts - time)){
                 selected_data = stored_data[i];
             }
         }
         if (selected_data != null){
+            console.log("diff added",client_ts-selected_data.data.time )
             diff_arr.push(client_ts-selected_data.data.time);
         }
     } else {
