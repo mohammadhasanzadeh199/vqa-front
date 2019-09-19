@@ -10,7 +10,7 @@ var __equalizer_row_num__ = 15;
 var __delay_estimate_sample_num__ = 350;
 var __delay_estimate_mean_ignore__ = 1;
 var __fix_delay__ = 1;
-var __delay_estimate_std_ignore__= 300;
+var __delay_estimate_std_ignore__= 5000;
 
 
 var __defualt_setting__ = {
