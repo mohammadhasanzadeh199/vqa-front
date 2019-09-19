@@ -194,6 +194,6 @@ function statistics( arr ){
     for (let i = 0; i<arr.length; i++ ){
         std += Math.pow( arr[i] - mean , 2 );
     }
-    std = std / arr.length;
+    std = Math.sqrt(std) / arr.length;
     return [mean, std];
 }
