@@ -34,7 +34,7 @@ function websocket_onmessage_handler(evt){
         stored_data.push(geted_data); 
         current_frame_rate = geted_data.data.frame_rate;
         if (inited_backend_time != "0"){
-            delay_controll(geted_data);
+            // delay_controll(geted_data);
         }
         // setEqualizers(geted_data);
         // setCircular(geted_data);
