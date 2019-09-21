@@ -12,7 +12,7 @@ var fragment_data = [];
 var inited_pts = 0;
 var video_delay = 0;
 var current_play_data_timestamp = null;
-var inited_backend_time = null;
+var inited_backend_time = "0";
 
 var loaded_fragment_additional_data = [];
 
@@ -34,19 +34,14 @@ function initPlayer() {
                 }
             }
             if (selected_data != null) {
-                inited_backend_time = selected_data.data.time;
                 console.log("triger",data.initPTS,selected_data.data.timestamp - inited_pts, inited_backend_time);
+                if (Math.abs(selected_data.data.timestamp - inited_pts) > 1 ){
+                    initPlayer();
+                } else {
+                    inited_backend_time = selected_data.data.time;
+                }
             }
         });
-
-        // hls.on(Hls.Events.FRAG_PARSING_DATA,function(event,data){  
-        //     if (data.type == "video"){
-        //         loaded_fragment_additional_data.push({
-        //             nb: data.nb,
-        //             sn: data.frag.sn
-        //         });
-        //     }
-        // });
 
 
         // bind them together
@@ -80,7 +75,6 @@ function initPlayer() {
 }
 
 video.addEventListener('timeupdate',function(e){
-    // console.log(video.captureStream().getVideoTracks()[0].getSettings().frameRate)
     syncPlay();
 })
 
@@ -88,21 +82,9 @@ video.addEventListener('timeupdate',function(e){
 // ====================================================================================================================
 // ------- syncing algorithem, set data to view according to playing frame --------------------------------------------
 // ====================================================================================================================
-// console.log(39317.19059528302-39395.86072173524)
-// console.log(new Date("Mon Sep 16 2019 06:17:40 GMT-0700 (Pacific Daylight Time)")-new Date("Mon Sep 16 2019 06:19:00 GMT-0700 (Pacific Daylight Time)"))
-// console.log(39413.924536454855-39602.06438403859)
-// console.log(new Date("Mon Sep 16 2019 06:19:23 GMT-0700 (Pacific Daylight Time)")-new Date("Mon Sep 16 2019 06:22:32 GMT-0700 (Pacific Daylight Time)"))
-// console.log(39673.52685581395-40008.19439546027)
-// console.log(new Date("Mon Sep 16 2019 06:23:44 GMT-0700 (Pacific Daylight Time)")-new Date('Mon Sep 16 2019 06:29:23 GMT-0700 (Pacific Daylight Time)'))
-// console.log("rrrrrrrrrrr");
-// console.log((3143729332- 3134860372)/(1568730925223-1568730821714)*1000);
-// console.log((3265196932- 3250760932)/(1568732277966-1568732116226)*1000);
-// console.log((-2985513952+ 2998947712)/(1568732567627-1568732411686)*1000);
-
 function syncPlay(){
     let now = current_fragment.startPTS + (new Date()).valueOf() - current_fragment.time - video_delay + Number(inited_backend_time);
     console.log(now);
-    delay_controll(now);
     let selected_data = null;
     let selected_index = null;
     for ( let i = 0; i < stored_data.length; i++ ){
@@ -154,28 +136,20 @@ function stored_data_controle(){
 
 
 let diff_arr = [];
-function delay_controll(client_ts){
+function delay_controll(geted_data){
+    let client_ts = current_fragment.startPTS + (new Date()).valueOf() - current_fragment.time - video_delay + Number(inited_backend_time);
     if (diff_arr.length < __delay_estimate_sample_num__ ) {
-        let selected_data = null;
-        for ( let i = 0; i < stored_data.length; i++ ){
-            let time = stored_data[i].data.time;
-            if (selected_data == null || Math.abs(client_ts - selected_data.data.time) >= Math.abs(client_ts - time)){
-                selected_data = stored_data[i];
-            }
-        }
-        if (selected_data != null){
-            console.log("diff added",client_ts-selected_data.data.time )
-            diff_arr.push(client_ts-selected_data.data.time);
-        }
+        console.log(diff_arr.length,client_ts - geted_data.data.time)
+        diff_arr.push(client_ts - geted_data.data.time);
     } else {
         let result = statistics(diff_arr);
         console.log("start shifting .....................................................")
         console.log("result",result);
         let mean = result[0];
         let std = result[1];
+        diff_arr = [];
         if (mean > Math.abs(__delay_estimate_mean_ignore__) && std < Math.abs(__delay_estimate_std_ignore__)){
             console.log("need to shift ...................................................")
-            diff_arr = [];
             video_delay = mean - __fix_delay__ ;
             video.pause();
             setTimeout(() => {

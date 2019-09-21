@@ -1,6 +1,7 @@
 // ------- data queue to store data for sync playing ------------------------------------------------------------------
 var stored_data = [];
 var current_frame_rate = null;
+var first_data_recived = true;
 // ------- launch websocket connection --------------------------------------------------------------------------------
 init_connection();
 
@@ -24,10 +25,17 @@ function websocket_onmessage_handler(evt){
     if (geted_data.type == "header"){
         setHeader(geted_data)
     } else {
-        console.log("recived",geted_data.data.time);
+        if (first_data_recived){
+            initPlayer();
+            first_data_recived = true;
+        }
+        console.log("recived",geted_data.data.time,stored_data.length);
         // console.log(geted_data);
         stored_data.push(geted_data); 
         current_frame_rate = geted_data.data.frame_rate;
+        if (inited_backend_time != "0"){
+            delay_controll(geted_data);
+        }
         // setEqualizers(geted_data);
         // setCircular(geted_data);
         // setNeon(geted_data);
@@ -42,9 +50,6 @@ function websocket_onmessage_handler(evt){
 // ====================================================================================================================
 $(".video-container button").click(function (){
     // $('video').attr("src",$(".video-container input").val())
-    setTimeout(function(){
-        initPlayer();
-    },10000)
     console.log("videourl:"+$(".video-container input").val());
     websocket.send("videourl:"+$(".video-container input").val());
 });
