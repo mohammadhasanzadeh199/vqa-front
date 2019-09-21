@@ -26,21 +26,30 @@ function initPlayer() {
             }else {
                 inited_pts = progresive_pts = (data.initPTS + Math.pow(2,33))/90000;
             }
-            let selected_data = null;
-            for ( let i = 0; i < stored_data.length; i++ ){
-                let timestamp = stored_data[i].data.timestamp;
-                if (selected_data == null || Math.abs(inited_pts - selected_data.data.timestamp) >= Math.abs(inited_pts - timestamp)){
-                    selected_data = stored_data[i];
+            let pts_iterval = setInterval(function(){
+                let selected_data = null;
+                for ( let i = 0; i < stored_data.length; i++ ){
+                    let timestamp = stored_data[i].data.timestamp;
+                    if (selected_data == null || Math.abs(inited_pts - selected_data.data.timestamp) >= Math.abs(inited_pts - timestamp)){
+                        selected_data = stored_data[i];
+                    }
                 }
-            }
-            if (selected_data != null) {
-                console.log("triger",data.initPTS,selected_data.data.timestamp - inited_pts, inited_backend_time);
-                if (Math.abs(selected_data.data.timestamp - inited_pts) > 1 ){
-                    initPlayer();
-                } else {
-                    inited_backend_time = selected_data.data.time;
+                if (selected_data != null) {
+                    if (selected_data.data.timestamp - inited_pts > 1 ){
+                        console.log("front delay",selected_data.data.timestamp - inited_pts);
+                        clearInterval(pts_iterval);
+                        setTimeout (function(){
+                            initPlayer();
+                        },1000)
+                    } else if (selected_data.data.timestamp - inited_pts < -1) {
+                        console.log("back delay",selected_data.data.timestamp - inited_pts);
+                        // do nothing yet
+                    } else {
+                        console.log("triger",data.initPTS,selected_data.data.timestamp - inited_pts, inited_backend_time);
+                        inited_backend_time = selected_data.data.time;
+                    }
                 }
-            }
+            },1000);
         });
 
 
