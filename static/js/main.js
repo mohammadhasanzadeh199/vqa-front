@@ -40,11 +40,12 @@ function initPlayer() {
                         clearInterval(pts_iterval);
                         setTimeout (function(){
                             initPlayer();
-                        },1000)
+                        },5000)
                     } else if (selected_data.data.timestamp - inited_pts <= -1) {
                         console.log("back delay",selected_data.data.timestamp - inited_pts);
                         // do nothing yet
                     } else {
+                        clearInterval(pts_iterval);                        
                         console.log("triger",data.initPTS,selected_data.data.timestamp - inited_pts, inited_backend_time);
                         inited_backend_time = selected_data.data.time;
                     }
