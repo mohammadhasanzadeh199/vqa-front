@@ -49,7 +49,7 @@ function initPlayer() {
                         inited_backend_time = selected_data.data.time;
                     }
                 }
-            },1000);
+            },5000);
         });
 
 
@@ -84,7 +84,9 @@ function initPlayer() {
 }
 
 video.addEventListener('timeupdate',function(e){
-    syncPlay();
+    if (inited_backend_time!="0"){
+        syncPlay();
+    }
 })
 
 
