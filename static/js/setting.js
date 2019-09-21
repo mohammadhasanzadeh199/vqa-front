@@ -213,3 +213,10 @@ $("#areYouSure .reset").click(function(){
     init_video_features_setting(current_data);
 })
  
+
+if (!__video_features_MOS__){
+    $(".video-features .top-part .header .second").css("display","none");
+}
+if (!__audio_features_MOS__){
+    $(".equalizer .equalizer-header .second").css("display","none");
+}

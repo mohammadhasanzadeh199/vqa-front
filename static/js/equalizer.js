@@ -93,7 +93,9 @@ function eq_log_control(name , value){
         if (eq_pending_to_log[i].name == name) {
             isPending = true;
             if (value < treshold_value || (new Date() - new Date(eq_pending_to_log[i].start)) > 5000 ){
-                eq_add_to_log(eq_pending_to_log[i].name,eq_pending_to_log[i].start,new Date);
+                let end = new Date()
+                eq_add_to_log(eq_pending_to_log[i].name,eq_pending_to_log[i].start,);
+                eq_pending_to_log[i].start = end;
             }
         }
     }

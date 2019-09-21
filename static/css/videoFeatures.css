@@ -124,7 +124,7 @@
     color: #ff67c2;
     text-shadow:0 0 16px #f8ecf2;
 }
-.mute-detection, .audio-cliping, .frame-freezing, .boxing {
+.mute-detection, .audio-cliping, .frame-freezing, .boxing, .black-frame ,.color-gamut {
     color: rgb(183, 183, 183);
 }
 .audio-cliping {
