@@ -35,13 +35,13 @@ function initPlayer() {
                     }
                 }
                 if (selected_data != null) {
-                    if (selected_data.data.timestamp - inited_pts > 1 ){
+                    if (selected_data.data.timestamp - inited_pts >= 1 ){
                         console.log("front delay",selected_data.data.timestamp - inited_pts);
                         clearInterval(pts_iterval);
                         setTimeout (function(){
                             initPlayer();
                         },1000)
-                    } else if (selected_data.data.timestamp - inited_pts < -1) {
+                    } else if (selected_data.data.timestamp - inited_pts <= -1) {
                         console.log("back delay",selected_data.data.timestamp - inited_pts);
                         // do nothing yet
                     } else {

@@ -27,20 +27,14 @@ function websocket_onmessage_handler(evt){
     } else {
         if (first_data_recived){
             initPlayer();
-            first_data_recived = true;
+            first_data_recived = false;
         }
         console.log("recived",geted_data.data.time,stored_data.length);
-        // console.log(geted_data);
         stored_data.push(geted_data); 
         current_frame_rate = geted_data.data.frame_rate;
         if (inited_backend_time != "0"){
             // delay_controll(geted_data);
         }
-        // setEqualizers(geted_data);
-        // setCircular(geted_data);
-        // setNeon(geted_data);
-        // setVideoMOS(geted_data);
-        // setAudioMOS(geted_data);
     }
 }
 
