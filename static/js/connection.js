@@ -1,6 +1,6 @@
 // ------- data queue to store data for sync playing ------------------------------------------------------------------
 var stored_data = [];
-var current_frame_rate = null;
+// ------- boolean var to init player after getting date --------------------------------------------------------------
 var first_data_recived = true;
 // ------- launch websocket connection --------------------------------------------------------------------------------
 init_connection();
@@ -17,6 +17,7 @@ function init_connection(){
     websocket.onerror = function(evt) { console.log(evt) };
 }
 
+
 // ====================================================================================================================
 // ------- websocket given data handler (check is header or log data) -------------------------------------------------
 // ====================================================================================================================
@@ -31,9 +32,8 @@ function websocket_onmessage_handler(evt){
         }
         console.log("recived",geted_data.data.time,stored_data.length);
         stored_data.push(geted_data); 
-        current_frame_rate = geted_data.data.frame_rate;
         if (inited_backend_time != "0"){
-            // delay_controll(geted_data);
+            delay_controll(geted_data);
         }
     }
 }

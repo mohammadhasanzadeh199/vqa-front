@@ -164,6 +164,17 @@ function delay_controll(geted_data){
             console.log("need to shift ...................................................")
             video_delay = mean + __const_delay_value__ ;
             video.pause();
+            let interval_counter =  Math.floor(video_delay/1000);;
+            $(".video-container .alert").css("display","block");
+            let sync_interval = setInterval(function(){
+                if (interval_counter<0){
+                    clearInterval(sync_interval);
+                    $(".video-container .alert").css("display","none");
+                } else {
+                    $(".video-container .alert").text("Syncing video and data. please waite "+ interval_counter + " seconds ...")
+                    interval_counter --;
+                }
+            },1000);
             setTimeout(() => {
                 video.play();
             },  video_delay  );
