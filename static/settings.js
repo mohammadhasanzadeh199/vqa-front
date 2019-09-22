@@ -21,6 +21,8 @@ var __log_waiting_time__ = 10;
 var __sync_play_stored_data_num__ = 10000;
 // ------------- num of log data to estimate delay -------------------------------------------------------------
 var __delay_estimate_sample_num__ = 350;
+// ------------- ignore front delay under this mean value (ms) -------------------------------------------------
+var __front_delay_estimate_mean_ignore__ = 10000;
 // ------------- ignore delay under this mean value ------------------------------------------------------------
 var __delay_estimate_mean_ignore__ = 1;
 // ------------- fix delay under this std value ----------------------------------------------------------------

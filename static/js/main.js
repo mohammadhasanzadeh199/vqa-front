@@ -178,6 +178,12 @@ function delay_controll(geted_data){
             setTimeout(() => {
                 video.play();
             },  video_delay  );
+        } else if ( mean < -Math.abs( __front_delay_estimate_mean_ignore__ ) ){
+            $(".video-container .alert").text("Your network connection is poor ...");
+            $(".video-container .alert").css("display","block");
+            setTimeout(function(){
+                $(".video-container .alert").css("display","none");
+            },3000)
         }
     }
 }

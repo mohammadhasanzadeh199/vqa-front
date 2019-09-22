@@ -12,7 +12,9 @@ init_connection();
 function init_connection(){
     websocket = new WebSocket(__websocket_url__);
     websocket.onopen = function(evt) { console.log(evt); };
-    websocket.onclose = function(evt) { console.log(evt) };
+    websocket.onclose = function(evt) { 
+        init_connection();
+    };
     websocket.onmessage = function(evt) { websocket_onmessage_handler(evt) };
     websocket.onerror = function(evt) { console.log(evt) };
 }
