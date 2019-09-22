@@ -37,9 +37,9 @@ function setEqualizers(json) {
             body.insertAfter(row.find(".td.source"));
         }
         // log control .................................................................
-        eq_log_control(eq_data[i].name,eq_data[i].value)
         row.removeClass("source");
-        row.insertAfter(".equalizer .table-body .table-col.source")
+        row.insertAfter(".equalizer .table-body .table-col.source");
+        eq_log_control(eq_data[i].name,eq_data[i].value);
     }
 }
 
@@ -61,11 +61,13 @@ function eq_map_to_color(index, name){
     let new_row_num = __equalizer_row_num__-1;
     // defualt gradiant ..................................................................
     let gradiant = [0.25,0.5,0.75];
+    // find from setting .................................................................
     for (let i = 0; i< equalizer_setting.length; i++){
         if (equalizer_setting[i].name == name) {
             gradiant = equalizer_setting[i].gradiant;
         }
     }
+    // map value to color by setting gradiant ............................................
     if (index/new_row_num<gradiant[0]){
         return __eq_colors__[0];
     } else if (index/new_row_num<gradiant[1]){
@@ -78,8 +80,13 @@ function eq_map_to_color(index, name){
 }
 
 
+// ====================================================================================================================
+// ------- equalizer log control. called in setEqualizer function -----------------------------------------------------
+// ====================================================================================================================
 function eq_log_control(name , value){
+    // defualt treshold value ..............................................................
     let treshold_value = 0.5;
+    // find treshold value from setting ....................................................
     for (let i = 0; i< equalizer_setting.length; i++){
         if (equalizer_setting[i].name == name) {
             treshold_value = equalizer_setting[i].value;
@@ -104,11 +111,17 @@ function eq_log_control(name , value){
     }
 }
 
+
+// ====================================================================================================================
+// ------- add data to log box of view. called in eq_log_contorl ------------------------------------------------------
+// ====================================================================================================================
 function eq_add_to_log(name,start,end){
+    // generate log table fields ..............................................................
     let start_dt = new Date(start);
     let start_str = start_dt.getHours() + ":" + start_dt.getMinutes() + ":" + start_dt.getSeconds() + ":" + start_dt.getMilliseconds();
     let end_dt = new Date(end);
     let end_str = end_dt.getHours() + ":" + end_dt.getMinutes() + ":" + end_dt.getSeconds() + ":" + end_dt.getMilliseconds();
+    // set variables to log table fields ......................................................
     let row = $(".log .source").clone();
     row.removeClass("source");
     row.find(".features").text(name);
@@ -117,21 +130,31 @@ function eq_add_to_log(name,start,end){
     row.find(".date").text(start_dt.getFullYear()+"/"+(start_dt.getMonth()+1)+"/"+start_dt.getDate());
     row.find(".icon").attr("src","/static/pic/icon/"+eq_icon_finder(name));
     row.insertAfter(".log .source");
+    // remove added log from pending queue .....................................................
     for (let i = 0; i< eq_pending_to_log.length; i++){
         if (eq_pending_to_log[i].name == name) {
             eq_pending_to_log.splice(i, 1);
         }
     }
-    if ($(".log .scrolable tr").length > __log_box_limit__){
+    // remove last one if is more than limit ...................................................
+    if ($(".log .scrolable tr:not(.source)").length > __log_box_limit__){
         $(".log .scrolable tr:last-child").remove();
     }
 }
 
+
+// ====================================================================================================================
+// ------- remove button onclick handler ------------------------------------------------------------------------------
+// ====================================================================================================================
 $(".log .clear").click(function(){
     $(".log .scrolable tr:not(.source)").remove();
 })
 
 
+
+// ====================================================================================================================
+// ------- equalizer log box icon finder. called in eq_add_to_log function --------------------------------------------
+// ====================================================================================================================
 function eq_icon_finder(name){
     for (let i=0;i<__icon_packes__.length;i++){
         if (__icon_packes__[i].name == name){
