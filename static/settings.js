@@ -42,6 +42,10 @@ var __equalizer_row_num__ = 15;
 var __audio_features_MOS__ = true;
 // ------------- if video features mos shown or not ------------------------------------------------------------
 var __video_features_MOS__ = true;
+// ------------- audio features gradiant colors ----------------------------------------------------------------
+var __eq_colors__ = ["#2b8d00","#ffea00","#ff9c00","#ff5500"];
+// ------------- video features gradiant colors ----------------------------------------------------------------
+var __vf_colors__ = ["#2b8d00","#ffea00","#ff9c00","#ff5500"];
 // ------------- icon pack map to feature name -----------------------------------------------------------------
 __icon_packes__ = [
     {

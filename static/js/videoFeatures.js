@@ -31,7 +31,6 @@ let options = {
 };
 
 let video_features_setting = null;
-let vf_colors = ["#2b8d00","#ffea00","#ff9c00","#ff5500"];
 let vf_pending_to_log = [];
 
 
@@ -124,13 +123,13 @@ function vf_map_to_color(value, name){
         }
     }
     if (value<gradiant[0]){
-        return vf_colors[0];
+        return __vf_colors__[0];
     } else if (value<gradiant[1]){
-        return vf_colors[1];
+        return __vf_colors__[1];
     } else if (value<gradiant[2]){
-        return vf_colors[2];
+        return __vf_colors__[2];
     } else {
-        return vf_colors[3];
+        return __vf_colors__[3];
     }
 }
 

@@ -1,5 +1,3 @@
-let eq_colors = ["#2b8d00","#ffea00","#ff9c00","#ff5500"];
-
 let equalizer_setting = null;
 
 let eq_pending_to_log = [];
@@ -69,13 +67,13 @@ function eq_map_to_color(index, name){
         }
     }
     if (index/new_row_num<gradiant[0]){
-        return eq_colors[0];
+        return __eq_colors__[0];
     } else if (index/new_row_num<gradiant[1]){
-        return eq_colors[1];
+        return __eq_colors__[1];
     } else if (index/new_row_num<gradiant[2]){
-        return eq_colors[2];
+        return __eq_colors__[2];
     } else {
-        return eq_colors[3];
+        return __eq_colors__[3];
     }
 }
 
