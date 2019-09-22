@@ -162,11 +162,11 @@ function delay_controll(geted_data){
         diff_arr = [];
         if (mean > Math.abs(__delay_estimate_mean_ignore__) && std < Math.abs(__delay_estimate_std_ignore__)){
             console.log("need to shift ...................................................")
-            video_delay = mean - __fix_delay__ ;
+            video_delay = mean + __const_delay_value__ ;
             video.pause();
             setTimeout(() => {
                 video.play();
-            },  video_delay );
+            },  video_delay  );
         }
     }
 }
