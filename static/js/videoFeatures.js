@@ -145,8 +145,15 @@ function vf_log_control(value , name){
     for (let i = 0; i< vf_pending_to_log.length; i++){
         if (vf_pending_to_log[i].name == name) {
             isPending = true;
-            if (value < treshold_value|| (new Date() - new Date(vf_pending_to_log[i].start)) > 5000){
-                eq_add_to_log(vf_pending_to_log[i].name,vf_pending_to_log[i].start,new Date());
+            if (value < treshold_value ){
+                vf_add_to_log(vf_pending_to_log[i].name,vf_pending_to_log[i].start,new Date());
+            } else if ((new Date() - new Date(vf_pending_to_log[i].start)) > __log_pending_time__){
+                let end = new Date()
+                eq_add_to_log(vf_pending_to_log[i].name,vf_pending_to_log[i].start,end);
+                vf_pending_to_log.push({
+                    name:name,
+                    start: end
+                });
             }
         }
     }
@@ -163,6 +170,10 @@ function vf_add_to_log(name,start,end){
     let start_str = start_dt.getHours() + ":" + start_dt.getMinutes() + ":" + start_dt.getSeconds() + ":" + start_dt.getMilliseconds();
     let end_dt = new Date(end);
     let end_str = end_dt.getHours() + ":" + end_dt.getMinutes() + ":" + end_dt.getSeconds() + ":" + end_dt.getMilliseconds();
+    // set export interval log ................................................................
+    if (interval_saved_log_list.length <= __export_log_interval_limit__){
+        interval_saved_log_list.push([name,start,end,start_dt.getFullYear()+"/"+(start_dt.getMonth()+1)+"/"+start_dt.getDate()])
+    }
     let row = $(".log .source").clone();
     row.removeClass("source");
     row.find(".features").text(name);

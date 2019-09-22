@@ -47,6 +47,12 @@ var __export_pre_name__ = "Errors";
 
 // ------------- capacity of log report box in html view -------------------------------------------------------
 var __log_box_limit__ = 30;
+// ------------- capacity of log interval report ---------------------------------------------------------------
+var __export_log_interval_limit__ = 3000;
+// ------------- iterval time to export log as file (ms) -------------------------------------------------------
+var __export_log_interval_time__ = 10*60*1000;
+// ------------- pending time to wait to log over treshold value (ms) ------------------------------------------
+var __log_pending_time__ = 5000;
 // ------------- num of equalizer column rows ------------------------------------------------------------------
 var __equalizer_row_num__ = 15;
 // ------------- if audio features mos shown or not ------------------------------------------------------------
