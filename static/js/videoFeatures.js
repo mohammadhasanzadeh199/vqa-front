@@ -170,11 +170,21 @@ function vf_add_to_log(name,start,end){
     row.find(".start").text(start_str);
     row.find(".end").text(end_str);
     row.find(".date").text(start_dt.getFullYear()+"/"+(start_dt.getMonth()+1)+"/"+start_dt.getDate());
-    row.find(".icon").attr("src","/static/pic/icon/loudness.png");
+    row.find(".icon").attr("src","/static/pic/icon/"+vf_icon_finder(name));
     row.insertAfter(".log .source");
     for (let i = 0; i< vf_pending_to_log.length; i++){
         if (vf_pending_to_log[i].name == name) {
             vf_pending_to_log.splice(i, 1);
         }
     }
+}
+
+
+function vf_icon_finder(name){
+    for (let i=0;i<__icon_packes__.length;i++){
+        if (__icon_packes__[i].name == name){
+            return __icon_packes__[i].value;
+        }
+    }
+    return "Brightness.png";
 }

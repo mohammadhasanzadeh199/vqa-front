@@ -32,8 +32,7 @@ function setEqualizers(json) {
             body.removeClass("source");
             if (j < eq_data[i].value*__equalizer_row_num__){ // enable cell ............
                 body.find("div").css("background-color",eq_map_to_color(j,eq_data[i].name));
-            }
-            else { // disable cell .....................................................
+            } else { // disable cell ...................................................
                 body.find("div").css("background-color","#383838");
                 body.find("div").css("box-shadow", "0px 2px 8px 0px #161616 inset")
             }
@@ -118,7 +117,7 @@ function eq_add_to_log(name,start,end){
     row.find(".start").text(start_str);
     row.find(".end").text(end_str);
     row.find(".date").text(start_dt.getFullYear()+"/"+(start_dt.getMonth()+1)+"/"+start_dt.getDate());
-    row.find(".icon").attr("src","/static/pic/icon/loudness.png");
+    row.find(".icon").attr("src","/static/pic/icon/"+eq_icon_finder(name));
     row.insertAfter(".log .source");
     for (let i = 0; i< eq_pending_to_log.length; i++){
         if (eq_pending_to_log[i].name == name) {
@@ -133,3 +132,13 @@ function eq_add_to_log(name,start,end){
 $(".log .clear").click(function(){
     $(".log .scrolable tr:not(.source)").remove();
 })
+
+
+function eq_icon_finder(name){
+    for (let i=0;i<__icon_packes__.length;i++){
+        if (__icon_packes__[i].name == name){
+            return __icon_packes__[i].value;
+        }
+    }
+    return "Brightness.png";
+}

@@ -42,11 +42,66 @@ var __equalizer_row_num__ = 15;
 var __audio_features_MOS__ = true;
 // ------------- if video features mos shown or not ------------------------------------------------------------
 var __video_features_MOS__ = true;
+// ------------- icon pack map to feature name -----------------------------------------------------------------
+__icon_packes__ = [
+    {
+        name:"Momentary Loudness",
+        value: "Brightness.png"
+    },
+    {
+        name:"Integrated Loudness",
+        value: "Brightness.png"
+    },
+    {
+        name:"ShortTerm Loudness",
+        value: "Brightness.png"
+    },
+    {
+        name:"LRU Loudness",
+        value: "Brightness.png"
+    },
+    {
+        name:"TPL Loudness",
+        value: "Brightness.png"
+    },
+    {
+        name:"Phase Coherence",
+        value: "Phase-Coherence.png"
+    },
+    {
+        name:"Noise Detection",
+        value: "Noise_Detection.png"
+    },
+    {
+        name:"Brightness",
+        value:"Brightness.png"
+    },
+    {
+        name:"Contrast",
+        value:"Contrast.png"
+    },
+    {
+        name:"Chroma",
+        value:"Chroma.png"
+    },
+    {
+        name:"Blockiness",
+        value:"Blockiness.png"
+    },
+    {
+        name:"Blurriness",
+        value:"Bluriness.png"
+    },
+    {
+        name:"Noise estimation",
+        value:"Noise Estimation.png"
+    },
+];
 
 
 
 // =============================================================================================================
-// ============ view setting variables =========================================================================
+// ============ defualt setting setting variables ==============================================================
 // =============================================================================================================
 
 // ------------- defualt setting of view and algorithem --------------------------------------------------------
@@ -121,58 +176,3 @@ var __defualt_setting__ = {
         },
     ],
 }
-
-__icon_packes__ = [
-    {
-        name:"Momentary Loudness",
-        value: ""
-    },
-    {
-        name:"Integrated Loudness",
-        value: ""
-    },
-    {
-        name:"ShortTerm Loudness",
-        value: ""
-    },
-    {
-        name:"LRU Loudness",
-        value: ""
-    },
-    {
-        name:"TPL Loudness",
-        value: ""
-    },
-    {
-        name:"Phase Coherence",
-        value: "Phase-Coherence.png"
-    },
-    {
-        name:"Noise Detection",
-        value: "Noise_Detection.png"
-    },
-    {
-        name:"Brightness",
-        value:"Brightness.png"
-    },
-    {
-        name:"Contrast",
-        value:"Contrast.png"
-    },
-    {
-        name:"Chroma",
-        value:"Chroma.png"
-    },
-    {
-        name:"Blockiness",
-        value:"Blockiness.png"
-    },
-    {
-        name:"Blurriness",
-        value:"Bluriness.png"
-    },
-    {
-        name:"Noise estimation",
-        value:"Noise Estimation.png"
-    },
-];
