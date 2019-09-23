@@ -36,15 +36,19 @@ function initPlayer() {
                 }
                 if (selected_data != null) {
                     if (selected_data.data.timestamp - inited_pts >= 1 ){
+                        $(".video-container .alert-primary").text(__init_pts_findig_text__);
+                        $(".video-container .alert-primary").css("display","block");
                         console.log("front delay",selected_data.data.timestamp - inited_pts);
                         clearInterval(pts_iterval);
                         setTimeout (function(){
                             initPlayer();
                         },5000)
                     } else if (selected_data.data.timestamp - inited_pts <= -1) {
+                        $(".video-container .alert-primary").text(__init_pts_findig_text__);
+                        $(".video-container .alert-primary").css("display","block");
                         console.log("back delay",selected_data.data.timestamp - inited_pts);
-                        // do nothing yet
                     } else {
+                        $(".video-container .alert-primary").css("display","none");
                         clearInterval(pts_iterval);                        
                         console.log("triger",data.initPTS,selected_data.data.timestamp - inited_pts, inited_backend_time);
                         inited_backend_time = selected_data.data.time;
@@ -164,13 +168,13 @@ function delay_controll(geted_data){
             video_delay = mean + __const_delay_value__ ;
             video.pause();
             let interval_counter =  Math.floor(video_delay/1000);;
-            $(".video-container .alert").css("display","block");
+            $(".video-container .alert-warning").css("display","block");
             let sync_interval = setInterval(function(){
                 if (interval_counter<0){
                     clearInterval(sync_interval);
-                    $(".video-container .alert").css("display","none");
+                    $(".video-container .alert-warning").css("display","none");
                 } else {
-                    $(".video-container .alert").text("Syncing video and data. please wait "+ interval_counter + " seconds ...")
+                    $(".video-container .alert-warning").text("Syncing video and data. please wait "+ interval_counter + " seconds ...")
                     interval_counter --;
                 }
             },1000);
@@ -178,10 +182,10 @@ function delay_controll(geted_data){
                 video.play();
             },  video_delay  );
         } else if ( mean < -Math.abs( __front_delay_estimate_mean_ignore__ ) ){
-            $(".video-container .alert").text("Your network connection is poor ...");
-            $(".video-container .alert").css("display","block");
+            $(".video-container .alert-warning").text("Your network connection is poor ...");
+            $(".video-container .alert-warning").css("display","block");
             setTimeout(function(){
-                $(".video-container .alert").css("display","none");
+                $(".video-container .alert-warning").css("display","none");
             },3000)
         }
     }

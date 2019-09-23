@@ -14,14 +14,20 @@ __stream_url__ = null;
 function init_connection(){
     websocket = new WebSocket(__websocket_url__);
     websocket.onopen = function(evt) { 
+        $(".video-container .alert-danger").css("display","none");
         console.log("open")
         websocket.send("videourl:"+__stream_url__);
     };
     websocket.onclose = function(evt) { 
         init_connection();
     };
-    websocket.onmessage = function(evt) { websocket_onmessage_handler(evt) };
-    websocket.onerror = function(evt) { console.log(evt) };
+    websocket.onmessage = function(evt) {
+        websocket_onmessage_handler(evt);
+    };
+    websocket.onerror = function(evt) {
+        $(".video-container .alert-danger").text(__websocket_error_text__);
+        $(".video-container .alert-danger").css("display","block");
+    };
 }
 
 

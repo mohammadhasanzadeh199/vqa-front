@@ -279,3 +279,7 @@ let __initial_data__ = {
         pillar_boxing:0
     }
 };
+
+
+var __websocket_error_text__ = "Data server connection error. please wait while reconnecting ..."
+var __init_pts_findig_text__ = "Please wait while syncing video and data ..."
