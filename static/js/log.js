@@ -25,18 +25,20 @@ $(".log button.save").click(function(){
 
 
 setInterval(() => {
-    let content = interval_saved_log_list;
-    let csvContent = "data:text/csv;charset=utf-8,";
-    content.forEach(function(rowArray) {
-        let row = rowArray.join(",");
-        csvContent += row + "\r\n";
-    });
-    var hiddenElement = document.createElement('a');
-    hiddenElement.href = encodeURI( csvContent);
-    hiddenElement.target = '_blank';
-    let downloade_date = new Date();
-    let time = "_" + downloade_date.getHours() + "_" + downloade_date.getMinutes() + "_" + downloade_date.getSeconds()
-    hiddenElement.download = __export_pre_name__ + time +'.csv';
-    hiddenElement.click();
-    interval_saved_log_list = [];
+    if (interval_saved_log_list.length>0) {
+        let content = interval_saved_log_list;
+        let csvContent = "data:text/csv;charset=utf-8,";
+        content.forEach(function(rowArray) {
+            let row = rowArray.join(",");
+            csvContent += row + "\r\n";
+        });
+        var hiddenElement = document.createElement('a');
+        hiddenElement.href = encodeURI( csvContent);
+        hiddenElement.target = '_blank';
+        let downloade_date = new Date();
+        let time = "_" + downloade_date.getHours() + "_" + downloade_date.getMinutes() + "_" + downloade_date.getSeconds()
+        hiddenElement.download = __export_pre_name__ + time +'.csv';
+        hiddenElement.click();
+        interval_saved_log_list = [];
+    }
 }, __export_log_interval_time__);

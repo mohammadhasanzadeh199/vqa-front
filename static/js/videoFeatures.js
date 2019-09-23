@@ -2,6 +2,9 @@ let options = {
     legend: {
         display:false,
     },
+    tooltips: {
+        enabled: false
+   },
     responsive:true,
     title: {
         display: true,
@@ -149,7 +152,7 @@ function vf_log_control(value , name){
                 vf_add_to_log(vf_pending_to_log[i].name,vf_pending_to_log[i].start,new Date());
             } else if ((new Date() - new Date(vf_pending_to_log[i].start)) > __log_pending_time__){
                 let end = new Date()
-                eq_add_to_log(vf_pending_to_log[i].name,vf_pending_to_log[i].start,end);
+                vf_add_to_log(vf_pending_to_log[i].name,vf_pending_to_log[i].start,end);
                 vf_pending_to_log.push({
                     name:name,
                     start: end

@@ -3,7 +3,7 @@
 // =============================================================================================================
 
 // ------------- streaming url of video player (dev setting) --------------------------------------------------- 
-var __stream_url__ = "http://demo-livemedia.irib.ir:1935/temp-test/tv1.stream/live.m3u8";
+var __stream_url__ = "http://demo-livemedia.irib.ir:1935/temp-test/tv3.stream/live.m3u8";
 // ------------- websocket server url --------------------------------------------------------------------------
 var __websocket_url__ = "ws://192.168.43.37:8007/";
 
@@ -63,27 +63,27 @@ var __video_features_MOS__ = true;
 var __eq_colors__ = ["#2b8d00","#ffea00","#ff9c00","#ff5500"];
 // ------------- video features gradiant colors ----------------------------------------------------------------
 var __vf_colors__ = ["#2b8d00","#ffea00","#ff9c00","#ff5500"];
-// ------------- icon pack map to feature name -----------------------------------------------------------------
+// ------------- icon pack map to feature name (icons directory is in static/pic/icon) -------------------------
 __icon_packes__ = [
     {
         name:"Momentary Loudness",
-        value: "Brightness.png"
+        value: "loudness.png"
     },
     {
         name:"Integrated Loudness",
-        value: "Brightness.png"
+        value: "loudness.png"
     },
     {
         name:"ShortTerm Loudness",
-        value: "Brightness.png"
+        value: "loudness.png"
     },
     {
         name:"LRU Loudness",
-        value: "Brightness.png"
+        value: "loudness.png"
     },
     {
         name:"TPL Loudness",
-        value: "Brightness.png"
+        value: "loudness.png"
     },
     {
         name:"Phase Coherence",

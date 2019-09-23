@@ -2,8 +2,10 @@
 var stored_data = [];
 // ------- boolean var to init player after getting date --------------------------------------------------------------
 var first_data_recived = true;
+// ------- user input url ---------------------------------------------------------------------------------------------
+__stream_url__ = null;
 // ------- launch websocket connection --------------------------------------------------------------------------------
-init_connection();
+// init_connection();
 
 
 // ====================================================================================================================
@@ -11,7 +13,10 @@ init_connection();
 // ====================================================================================================================
 function init_connection(){
     websocket = new WebSocket(__websocket_url__);
-    websocket.onopen = function(evt) { console.log(evt); };
+    websocket.onopen = function(evt) { 
+        console.log("open")
+        websocket.send("videourl:"+__stream_url__);
+    };
     websocket.onclose = function(evt) { 
         init_connection();
     };
@@ -45,7 +50,7 @@ function websocket_onmessage_handler(evt){
 // ------- on start button click handler. need to send url to give data -----------------------------------------------
 // ====================================================================================================================
 $(".video-container button").click(function (){
-    // $('video').attr("src",$(".video-container input").val())
+    __stream_url__ = $(".video-container input").val();
     console.log("videourl:"+$(".video-container input").val());
-    websocket.send("videourl:"+$(".video-container input").val());
+    init_connection();
 });
