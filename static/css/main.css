@@ -38,7 +38,7 @@
 }
 .video-container button, .video-container button:hover, .video-container button:focus, .video-container button:active {
     background-color: #373737;
-    border-bottom: white solid 0.1vw !important;
+    border-bottom: white solid 1px !important;
     border-radius: 0;
 }
 .video-container button:hover {
