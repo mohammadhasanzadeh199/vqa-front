@@ -16,6 +16,7 @@ function setEqualizers(json) {
     // remove every thing first ........................................................
     $(".equalizer .table-header .th:not(.source)").remove();
     $(".equalizer .table-body .table-col:not(.source)").remove();
+    $(".equalizer .table-footer .footer-item:not(.source)").remove()
     // now create each column ..........................................................
     for (let i = 0; i<eq_data.length;i++){
         let header = $(".equalizer .table-header .source").clone();
@@ -39,6 +40,10 @@ function setEqualizers(json) {
         // log control .................................................................
         row.removeClass("source");
         row.insertAfter(".equalizer .table-body .table-col.source");
+        let footer = $(".equalizer .table-footer .footer-item.source").clone();
+        footer.removeClass("source");
+        footer.find("img").attr("src","/static/pic/icon/"+eq_icon_finder(eq_data[i].name));
+        footer.insertAfter(".equalizer .table-footer .footer-item.source")
         eq_log_control(eq_data[i].name,eq_data[i].value);
     }
 }
@@ -170,5 +175,5 @@ function eq_icon_finder(name){
             return __icon_packes__[i].value;
         }
     }
-    return "Brightness.png";
+    return "loudness.png";
 }

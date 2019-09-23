@@ -35,7 +35,7 @@
             align-items: center;
 }
 .equalizer .table {
-    width: 500px;
+    width: fit-content;
     margin:0;
 }
 .equalizer .table-header {
@@ -70,7 +70,9 @@
     -webkit-box-shadow: 0px 3px 5px 0px #333;
             box-shadow: 0px 3px 5px 0px #333;
 }
-
+.equalizer .table-body .table-col:not(:last-child){
+    margin-right: 16px;
+}
 .equalizer .table-body .table-col .td{
     display: -webkit-box;
     display: -ms-flexbox;
