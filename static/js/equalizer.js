@@ -98,6 +98,7 @@ function eq_log_control(name , value){
         }
     }
     let isPending = false;
+    // check all log collection array ......................................................
     for (let i = 0; i< eq_pending_to_log.length; i++){
         if (eq_pending_to_log[i].name == name) {
             isPending = true;
@@ -113,6 +114,7 @@ function eq_log_control(name , value){
             }
         }
     }
+    // if is not in collection array add it .................................................
     if (!isPending && value > treshold_value){
         eq_pending_to_log.push({
             name:name,

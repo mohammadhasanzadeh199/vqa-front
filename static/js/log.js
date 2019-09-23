@@ -1,14 +1,16 @@
+// ------- interval log list array ------------------------------------------------------------------------------------
 var interval_saved_log_list = [];
 
+
+// ====================================================================================================================
+// ------- on save button click handler (download log) ----------------------------------------------------------------
+// ====================================================================================================================
 $(".log button.save").click(function(){
     let log_elements = $(".log .scrolable tbody tr:not(.source)").toArray();
     let content = [];
-    console.log(log_elements.length)
     for (let i = 0; i<log_elements.length;i++){
         content.push([$(log_elements[i]).find(".features").text(),$(log_elements[i]).find(".start").text(),$(log_elements[i]).find(".end").text(),$(log_elements[i]).find(".date").text()])
     }
-    console.log(log_elements);
-    console.log(content);
     let csvContent = "data:text/csv;charset=utf-8,";
     content.forEach(function(rowArray) {
         let row = rowArray.join(",");
@@ -24,6 +26,9 @@ $(".log button.save").click(function(){
 })
 
 
+// ====================================================================================================================
+// ------- interval to save in certain times automaticly --------------------------------------------------------------
+// ====================================================================================================================
 setInterval(() => {
     if (interval_saved_log_list.length>0) {
         let content = interval_saved_log_list;
