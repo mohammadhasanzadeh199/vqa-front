@@ -131,69 +131,151 @@ var __defualt_setting__ = {
         {
             name:"Momentary Loudness",
             value: 0.5,
-            gradiant:[0.25,0.5,0.75]
+            gradiant:[0.25,0.5,0.75],
+            id: 1,
         },
         {
             name:"Integrated Loudness",
             value: 0.5,
-            gradiant:[0.25,0.5,0.75]
+            gradiant:[0.25,0.5,0.75],
+            id: 2,
         },
         {
             name:"ShortTerm Loudness",
             value: 0.5,
-            gradiant:[0.25,0.5,0.75]
+            gradiant:[0.25,0.5,0.75],
+            id: 3,
         },
         {
             name:"LRU Loudness",
             value: 0.5,
-            gradiant:[0.25,0.5,0.75]
+            gradiant:[0.25,0.5,0.75],
+            id: 4,
         },
         {
             name:"TPL Loudness",
             value: 0.5,
-            gradiant:[0.25,0.5,0.75]
+            gradiant:[0.25,0.5,0.75],
+            id: 5,
         },
         {
             name:"Phase Coherence",
             value: 0.5,
-            gradiant:[0.25,0.5,0.75]
+            gradiant:[0.25,0.5,0.75],
+            id: 6,
         },
         {
             name:"Noise Detection",
             value: 0.5,
-            gradiant:[0.25,0.5,0.75]
+            gradiant:[0.25,0.5,0.75],
+            id: 7,
         },
     ],
     circular:[
         {
             name:"Brightness",
             value: 50,
-            gradiant:[25,50,75]
+            gradiant:[25,50,75],
+            id: 8,
         },
         {
             name:"Contrast",
             value: 50,
-            gradiant:[25,50,75]
+            gradiant:[25,50,75],
+            id: 9,
         },
         {
             name:"Chroma",
             value: 50,
-            gradiant:[25,50,75]
+            gradiant:[25,50,75],
+            id: 10,
         },
         {
             name:"Blockiness",
             value: 50,
-            gradiant:[25,50,75]
+            gradiant:[25,50,75],
+            id: 11,
         },
         {
             name:"Blurriness",
             value: 50,
-            gradiant:[25,50,75]
+            gradiant:[25,50,75],
+            id: 12,
         },
         {
             name:"Noise estimation",
             value: 50,
-            gradiant:[25,50,75]
+            gradiant:[25,50,75],
+            id: 13,
         },
     ],
 }
+
+
+let __initial_data__ = {
+    data: {
+        type:"log",
+        equalizer: [
+            {
+                name:"Momentary Loudness",
+                value: 0,
+            },
+            {
+                name:"Integrated Loudness",
+                value: 0,
+            },
+            {
+                name:"ShortTerm Loudness",
+                value: 0,
+            },
+            {
+                name:"LRU Loudness",
+                value: 0,
+            },
+            {
+                name:"TPL Loudness",
+                value: 0,
+            },
+            {
+                name:"Phase Coherence",
+                value: 0,
+            },
+            {
+                name:"Noise Detection",
+                value: 0,
+            },
+        ],
+        circular:[
+            {
+                name:"Brightness",
+                value: 0,
+            },
+            {
+                name:"Contrast",
+                value: 0,
+            },
+            {
+                name:"Chroma",
+                value: 0,
+            },
+            {
+                name:"Blockiness",
+                value: 0,
+            },
+            {
+                name:"Blurriness",
+                value: 0,
+            },
+            {
+                name:"Noise estimation",
+                value: 0,
+            },
+        ],
+        audio_clipping:0,
+        black_frame:0,
+        color_gamut:0,
+        frame_freezing:0,
+        mute_detection:0,
+        pillar_boxing:0
+    }
+};

@@ -55,7 +55,6 @@ function setCircular(json) {
             }
         }
         if (exist == -1){
-            console.log("111111111111111111111111111111111111111111111111111111111111111111111111")
             let chart = $(".video-features .source").clone();
             chart.removeClass("source");
             chart.insertAfter(".video-features .source");
@@ -90,9 +89,7 @@ function setCircular(json) {
                 element: chart
             });
         } else {
-            console.log("222222222222222222222222222222222222222222222222222222222222222222222222222222222")
             let chart = vf_charts[exist].chart;
-            console.log(vf_data[i].name,chart.data.datasets)
             chart.data.datasets[0] = {
                 fill: true,
                 backgroundColor: [ vf_map_to_color(vf_data[i].value,vf_data[i].name),'#b0b0b0'],
