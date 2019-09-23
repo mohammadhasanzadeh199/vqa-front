@@ -33,6 +33,7 @@ let options = {
 }
 };
 
+let vf_charts = [];
 let video_features_setting = null;
 let vf_pending_to_log = [];
 
@@ -43,38 +44,81 @@ function set_video_features_setting_obj(obj){
 
 
 function setCircular(json) {
-    $(".video-features .chart-container:not(.source)").remove();
+    // $(".video-features .chart-container:not(.source)").remove();
     let vf_data = json.data.circular;
     for ( let i = 0 ; i < vf_data.length ; i++ ){
-        let chart = $(".video-features .source").clone();
-        chart.removeClass("source");
-        chart.insertAfter(".video-features .source");
-        let canvas = chart.find("canvas");
-        let ctx = canvas[0].getContext("2d");
-        let data = {
-            datasets: [
-            {
+        let exist = -1;
+        for (let j = 0; j<vf_charts.length;j++){
+            if (vf_charts[j].name == vf_data[i].name){
+                exist = j;
+                break;
+            }
+        }
+        if (exist == -1){
+            console.log("111111111111111111111111111111111111111111111111111111111111111111111111")
+            let chart = $(".video-features .source").clone();
+            chart.removeClass("source");
+            chart.insertAfter(".video-features .source");
+            let canvas = chart.find("canvas");
+            let ctx = canvas[0].getContext("2d");
+            let data = {
+                datasets: [
+                {
+                    fill: true,
+                    backgroundColor: [ vf_map_to_color(vf_data[i].value,vf_data[i].name),'#b0b0b0'],
+                    data: [vf_data[i].value,100-vf_data[i].value],
+                    borderColor:	['black', 'black'],
+                    borderWidth: [0,0],
+                    borderAlign:'inner'
+                }
+                ]
+            }; 
+            options.title.text = vf_data[i].name;
+            options.plugins.doughnutlabel.labels[0].text = vf_data[i].value + "%";
+        
+            let myPieChart = new Chart(ctx, {
+                labelAlign: 'center',
+                type: 'doughnut',
+                data: data,
+                options: options
+            });
+            myPieChart.canvas.parentNode.style.height = '120px';
+            myPieChart.canvas.parentNode.style.width = '120px';
+            vf_charts.push({
+                name: vf_data[i].name,
+                chart: myPieChart,
+                element: chart
+            });
+        } else {
+            console.log("222222222222222222222222222222222222222222222222222222222222222222222222222222222")
+            let chart = vf_charts[exist].chart;
+            console.log(vf_data[i].name,chart.data.datasets)
+            chart.data.datasets[0] = {
                 fill: true,
                 backgroundColor: [ vf_map_to_color(vf_data[i].value,vf_data[i].name),'#b0b0b0'],
-                data: [vf_data[i].value,100-vf_data[i].value],
+                data: [Number(vf_data[i].value),100-vf_data[i].value],
                 borderColor:	['black', 'black'],
                 borderWidth: [0,0],
                 borderAlign:'inner'
             }
-            ]
-        }; 
-        options.title.text = vf_data[i].name;
-        options.plugins.doughnutlabel.labels[0].text = vf_data[i].value + "%";
-    
-        let myPieChart = new Chart(ctx, {
-            labelAlign: 'center',
-            type: 'doughnut',
-            data: data,
-            options: options
-        });
-        myPieChart.canvas.parentNode.style.height = '120px';
-        myPieChart.canvas.parentNode.style.width = '120px';
+            chart.options.title.text = vf_data[i].name;
+            chart.options.plugins.doughnutlabel.labels[0].text = vf_data[i].value + "%";
+            chart.update();
+        }
         vf_log_control(vf_data[i].value,vf_data[i].name)
+    }
+    for ( let i = 0 ; i < vf_charts.length ; i++ ){
+        let contain = false;
+        for (let j = 0; j<vf_data.length; j++) {
+            if (vf_charts[i].name == vf_data[j].name){
+                contain = true;
+                break;
+            }
+        }
+        if (!contain) {
+            vf_charts[i].element.remove();
+        }
+    
     }
 
 }

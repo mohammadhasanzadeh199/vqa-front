@@ -170,7 +170,7 @@ function delay_controll(geted_data){
                     clearInterval(sync_interval);
                     $(".video-container .alert").css("display","none");
                 } else {
-                    $(".video-container .alert").text("Syncing video and data. please waite "+ interval_counter + " seconds ...")
+                    $(".video-container .alert").text("Syncing video and data. please wait "+ interval_counter + " seconds ...")
                     interval_counter --;
                 }
             },1000);
