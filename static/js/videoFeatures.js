@@ -242,3 +242,8 @@ function vf_icon_finder(name){
     }
     return "Brightness.png";
 }
+
+
+if (!__video_features_MOS__){
+    $(".video-features .top-part .header .second").css("display","none");
+}

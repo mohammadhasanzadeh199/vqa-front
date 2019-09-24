@@ -1,21 +1,22 @@
+// elements current dim -------------------------------------------------------------
+let windowWidth = $(window).width();
 let videoHeaderWidth = $("#videoHeader" ).width();
 let videoWidth = $(".video-container").width();
 let logWidht = $(".log").width();
-let videoMinWidth = 300;
-let headerMinWidth = 200;
-let logMinWidth = 300;
-//-------------------------------------------------------------
 let equalizerWidth = $(".equalizer").width();
-let equalizerMinWidth = 500;
 let videoFeaturesWidth = $(".video-features").width();
-let videoFeaturesMinWidth = 400;
-//-------------------------------------------------------------
 let topPartHeight = $(".top-row.top-container" ).height();
 let bottomPartHeight = $(".bottom-row.bottom-container" ).height();
-let topPartMinHeight = 300;
-let bottomPartMinHeight = 400;
+// elements min dim -----------------------------------------------------------------
+let videoMinWidth = __video_min_width__;
+let headerMinWidth = __header_min_width__;
+let logMinWidth = __log_min_width__;
+let equalizerMinWidth = __equalizer_min_width__;
+let videoFeaturesMinWidth = __video_feature_min_width;
+let topPartMinHeight = __top_row_min_width__;
+let bottomPartMinHeight = __bottom_row_min_width__;
 
-let windowWidth = $(window).width();
+
 // =========================================================================================================================
 // =========== video header box resizable (just horizontal) ================================================================
 // =========================================================================================================================
@@ -102,6 +103,10 @@ $(".equalizer" ).resize(function(){
     }
 })
 
+
+// =========================================================================================================================
+// =========== reinit variables after changing =============================================================================
+// =========================================================================================================================
 function reload(){
     videoHeaderWidth = $("#videoHeader" ).width();
     videoWidth = $(".video-container").width();
@@ -110,10 +115,13 @@ function reload(){
     bottomPartHeight = $(".bottom-row.bottom-container").height();
     equalizerWidth = $(".equalizer").width();
     videoFeaturesWidth = $(".video-features").width();
-    // $("#videoHeader" ).css("max-width",$(".top-row.top-container").width()-videoMinWidth-$(".log").width());
-    // $(".log" ).css("max-width",$(".top-row.top-container").width()-videoMinWidth-$("#videoHeader").width());
 }
 
+
+
+// =========================================================================================================================
+// =========== window resize handler =======================================================================================
+// =========================================================================================================================
 $(window).resize(function(){
     if (windowWidth != $(window).width()){
         windowWidth = $(window).width();
@@ -122,6 +130,11 @@ $(window).resize(function(){
     }
 })
 
+
+
+// =========================================================================================================================
+// =========== restyling boxes by percentage like first look ===============================================================
+// =========================================================================================================================
 function restyle(){
     $("#videoHeader" ).width("calc(2 * 100% / 12)");
     $(".video-container").width("calc( 100% / 12 * 5)");

@@ -1,30 +1,49 @@
-let equalizer_variant_colors = ["#2b8d00","#ffea00","#ff9c00","#ff5500"];
-
+// ------- old default setting that saved in storage ------------------------------------------------------------------
 let storage_default_setting = localStorage.getItem("default_setting");
+// ------- saved setting that saved in storage (user customize) -------------------------------------------------------
 let saved_setting = localStorage.getItem("setting");
-get_storage_handler();
 
+// ------- init saved setting and defualt setting befor every thing ---------------------------------------------------
+get_storage_handler();
+// ------- set setting object in equalizer data player js -------------------------------------------------------------
+set_equalizer_setting_obj(saved_setting.equalizer);
+// ------- set setting object in video features data player js --------------------------------------------------------
+set_video_features_setting_obj(saved_setting.circular);
+// ------- render equalizer settin in setting modal -------------------------------------------------------------------
+init_equalizer_setting(saved_setting);
+// ------- set setting object in video features data player js --------------------------------------------------------
+init_video_features_setting(saved_setting);
+
+
+// ====================================================================================================================
+// ------- get and pars setting from storage and check if default setting changed by server PO ------------------------
+// ====================================================================================================================
 function get_storage_handler(){
+    // first time using app .................................................................
     if (saved_setting == null){
         saved_setting = __defualt_setting__;
         localStorage.setItem("setting",JSON.stringify(saved_setting));
         localStorage.setItem("default_setting",JSON.stringify(__defualt_setting__));
-        console.log("1111111",saved_setting);
-    } else {
+    } 
+    // else get setting from storage ........................................................    
+    else {
         saved_setting = JSON.parse(saved_setting);
-        console.log("22222",saved_setting);
     }
+    // check if defualt setting changed .....................................................
     if ( JSON.stringify(__defualt_setting__) != storage_default_setting ) {
         get_changes(saved_setting.circular,__defualt_setting__.circular);
         get_changes(saved_setting.equalizer,__defualt_setting__.equalizer);
         localStorage.setItem("default_setting",JSON.stringify(__defualt_setting__));
         localStorage.setItem("setting",JSON.stringify(saved_setting));
-        console.log("33333333",saved_setting)
     }
 }
 
 
+// ====================================================================================================================
+// ------- detect changed setting and set to current setting ----------------------------------------------------------
+// ====================================================================================================================
 function get_changes() {
+    // check and set circular setting .......................................................
     for(let i = 0; i < __defualt_setting__.circular.length; i++ ) {
         let isFind = false;
         for ( let j=0; j<saved_setting.circular.length;j++){
@@ -44,6 +63,7 @@ function get_changes() {
             saved_setting.circular.push(__defualt_setting__.circular[i])
         }
     }
+    // remove extera setting that is not exist in default setting ...........................
     for(let i = 0; i < saved_setting.circular.length; i++ ) {
         let isFind = false;
         for (let j=0; j< __defualt_setting__.circular.length;j++){
@@ -57,8 +77,7 @@ function get_changes() {
             i--;
         }
     }
-
-
+    // check and set equalizer setting .......................................................
     for(let i = 0; i < __defualt_setting__.equalizer.length; i++ ) {
         let isFind = false;
         for ( let j=0; j<saved_setting.equalizer.length;j++){
@@ -78,6 +97,7 @@ function get_changes() {
             saved_setting.equalizer.push(__defualt_setting__.equalizer[i])
         }
     }
+    // remove extera setting that is not exist in default setting ...........................
     for(let i = 0; i < saved_setting.equalizer.length; i++ ) {
         let isFind = false;
         for (let j=0; j< __defualt_setting__.equalizer.length;j++){
@@ -94,11 +114,10 @@ function get_changes() {
 }
 
 
-set_equalizer_setting_obj(saved_setting.equalizer);
-set_video_features_setting_obj(saved_setting.circular);
-init_equalizer_setting(saved_setting);
-init_video_features_setting(saved_setting);
 
+// ====================================================================================================================
+// ------- rendering equalizer setting --------------------------------------------------------------------------------
+// ====================================================================================================================
 function init_equalizer_setting(json) {
     $("#settingModal .equalizer-setting:not(.source)").remove();
     let eq_data = json.equalizer;
@@ -116,6 +135,10 @@ function init_equalizer_setting(json) {
 }
 
 
+
+// ====================================================================================================================
+// ------- rendering video features setting ---------------------------------------------------------------------------
+// ====================================================================================================================
 function init_video_features_setting(json){
     $("#settingModal .video-features-setting:not(.source)").remove();
     let vf_data = json.circular;
@@ -134,6 +157,11 @@ function init_video_features_setting(json){
 }
 
 
+
+
+// ====================================================================================================================
+// ------- set saved setting values to rendered setting ---------------------------------------------------------------
+// ====================================================================================================================
 function set_video_features_setting_value(inputID,sliderID,name) {
     let setting = saved_setting.circular;
     let isFound = false;
@@ -164,6 +192,11 @@ function set_video_features_setting_value(inputID,sliderID,name) {
     });
 }
 
+
+
+// ====================================================================================================================
+// ------- on video feature slider change handler ---------------------------------------------------------------------
+// ====================================================================================================================
 function change_video_feature(name, start) {
     for (let i = 0; i< saved_setting.circular.length; i++ ){
         if (saved_setting.circular[i].name == name){
@@ -172,6 +205,12 @@ function change_video_feature(name, start) {
         }
     }
 }
+
+
+
+// ====================================================================================================================
+// ------- on video feature treshold value change handler -------------------------------------------------------------
+// ====================================================================================================================
 function change_video_feature_treshold(name,value){
     for (let i = 0; i< saved_setting.circular.length; i++ ){
         if (saved_setting.circular[i].name == name){
@@ -183,6 +222,9 @@ function change_video_feature_treshold(name,value){
 
 
 
+// ====================================================================================================================
+// ------- set saved setting values to rendered setting ---------------------------------------------------------------
+// ====================================================================================================================
 function set_equalizer_setting_value(inputID,sliderID,name) {
     let setting = saved_setting.equalizer;
     let isFound = false;
@@ -214,6 +256,11 @@ function set_equalizer_setting_value(inputID,sliderID,name) {
     });
 }
 
+
+
+// ====================================================================================================================
+// ------- on equalizer slider value change handler -------------------------------------------------------------------
+// ====================================================================================================================
 function change_equalizer(name, start) {
     for (let i = 0; i< saved_setting.equalizer.length; i++ ){
         if (saved_setting.equalizer[i].name == name){
@@ -224,6 +271,11 @@ function change_equalizer(name, start) {
     }
 }
 
+
+
+// ====================================================================================================================
+// ------- on equalizer treshold value slide change handler -----------------------------------------------------------
+// ====================================================================================================================
 function change_equalizer_treshold(name,value){
     for (let i = 0; i< saved_setting.equalizer.length; i++ ){
         if (saved_setting.equalizer[i].name == name){
@@ -235,6 +287,9 @@ function change_equalizer_treshold(name,value){
 
 
 
+// ====================================================================================================================
+// ------- init equalizer slider --------------------------------------------------------------------------------------
+// ====================================================================================================================
 function init_eq_slider(id) {
     let slider = document.getElementById(id);
     noUiSlider.create(slider, {
@@ -251,10 +306,15 @@ function init_eq_slider(id) {
     });
     let connect = slider.querySelectorAll('.noUi-connect');
     for (var i = 0; i < connect.length; i++) {
-        connect[i].style.backgroundColor=equalizer_variant_colors[i] ;
+        connect[i].style.backgroundColor=__eq_colors__[i] ;
     }
 }
 
+
+
+// ====================================================================================================================
+// ------- init video features slider ---------------------------------------------------------------------------------
+// ====================================================================================================================
 function init_vf_slider(id) {
     let slider = document.getElementById(id);
     noUiSlider.create(slider, {
@@ -271,12 +331,15 @@ function init_vf_slider(id) {
     });
     let connect = slider.querySelectorAll('.noUi-connect');
     for (var i = 0; i < connect.length; i++) {
-        connect[i].style.backgroundColor=equalizer_variant_colors[i] ;
+        connect[i].style.backgroundColor=__eq_colors__[i] ;
     }
 }
 
 
 
+// ====================================================================================================================
+// ------- on modal save button click handler -------------------------------------------------------------------------
+// ====================================================================================================================
 $("#settingModal .modal-footer button.save").click(function(){
     localStorage.setItem("setting",JSON.stringify(saved_setting));
     set_equalizer_setting_obj(saved_setting.equalizer);
@@ -285,6 +348,10 @@ $("#settingModal .modal-footer button.save").click(function(){
 })
 
 
+
+// ====================================================================================================================
+// ------- on modal hide handler --------------------------------------------------------------------------------------
+// ====================================================================================================================
 $('#settingModal').on('hidden.bs.modal', function (e) {
     saved_setting = localStorage.getItem("setting");
     saved_setting = JSON.parse(saved_setting);
@@ -292,17 +359,14 @@ $('#settingModal').on('hidden.bs.modal', function (e) {
     init_video_features_setting(saved_setting);
 });
 
+
+
+// ====================================================================================================================
+// ------- on modal reset button click handler ------------------------------------------------------------------------
+// ====================================================================================================================
 $("#areYouSure .reset").click(function(){
     saved_setting = __defualt_setting__;
     localStorage.setItem("setting",JSON.stringify(__defualt_setting__));
     init_equalizer_setting(saved_setting);
     init_video_features_setting(saved_setting);
 })
- 
-
-if (!__video_features_MOS__){
-    $(".video-features .top-part .header .second").css("display","none");
-}
-if (!__audio_features_MOS__){
-    $(".equalizer .equalizer-header .second").css("display","none");
-}
