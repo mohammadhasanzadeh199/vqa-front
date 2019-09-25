@@ -1,3 +1,4 @@
+// ------- pie charts defualt config ----------------------------------------------------------------------------------
 let options = {
     legend: {
         display:false,
@@ -32,28 +33,38 @@ let options = {
         }
 }
 };
-
+// ------- pie charts object and selector -----------------------------------------------------------------------------
 let vf_charts = [];
+// ------- video features setting (set from setting.js) ---------------------------------------------------------------
 let video_features_setting = null;
+// ------- pendig data waiting to decrease to log ---------------------------------------------------------------------
 let vf_pending_to_log = [];
 
 
+// =============================================================================================================
+// ============ setting object setter ==========================================================================
+// =============================================================================================================
 function set_video_features_setting_obj(obj){
     video_features_setting = obj;
 }
 
 
+
+// =============================================================================================================
+// ============ set video features data to charts ==============================================================
+// =============================================================================================================
 function setCircular(json) {
-    // $(".video-features .chart-container:not(.source)").remove();
     let vf_data = json.data.circular;
     for ( let i = 0 ; i < vf_data.length ; i++ ){
         let exist = -1;
+        // find if chart was created ..................................................................
         for (let j = 0; j<vf_charts.length;j++){
             if (vf_charts[j].name == vf_data[i].name){
                 exist = j;
                 break;
             }
         }
+        // if not created yet ..........................................................................
         if (exist == -1){
             let chart = $(".video-features .source").clone();
             chart.removeClass("source");
@@ -88,7 +99,9 @@ function setCircular(json) {
                 chart: myPieChart,
                 element: chart
             });
-        } else {
+        } 
+        // else just update exist one ..................................................................        
+        else {
             let chart = vf_charts[exist].chart;
             chart.data.datasets[0] = {
                 fill: true,
@@ -104,6 +117,7 @@ function setCircular(json) {
         }
         vf_log_control(vf_data[i].value,vf_data[i].name)
     }
+    // remove exist chart if is not exist in log data ...................................................
     for ( let i = 0 ; i < vf_charts.length ; i++ ){
         let contain = false;
         for (let j = 0; j<vf_data.length; j++) {
@@ -114,13 +128,18 @@ function setCircular(json) {
         }
         if (!contain) {
             vf_charts[i].element.remove();
+            vf_charts[i].splice(i,1);
+            i--;
         }
     
     }
-
 }
 
 
+
+// =============================================================================================================
+// ============ set neon data ==================================================================================
+// =============================================================================================================
 function setNeon(json){
     let n_data = json.data;
     $(".video-features .bottom-part .filter").removeClass("active");
@@ -152,6 +171,10 @@ function setNeon(json){
 }
 
 
+
+// =============================================================================================================
+// ============ set video mos from geted data ==================================================================
+// =============================================================================================================
 function setVideoMOS(json){
     let mos = json.data.video_mos;
     $(".video-features .top-part .header .second").text("MOS: "+mos);
@@ -159,6 +182,9 @@ function setVideoMOS(json){
 
 
 
+// =============================================================================================================
+// ============ map value to color inorder to setting ==========================================================
+// =============================================================================================================
 function vf_map_to_color(value, name){
     let gradiant = [25,50,75];
     for (let i = 0; i< video_features_setting.length; i++){
@@ -178,14 +204,21 @@ function vf_map_to_color(value, name){
 }
 
 
+
+// =============================================================================================================
+// ============ control if need to loging in log box ===========================================================
+// =============================================================================================================
 function vf_log_control(value , name){
+    // defualt treshold value ..............................................................
     let treshold_value = 50;
+    // find treshold value from setting ....................................................
     for (let i = 0; i< video_features_setting.length; i++){
         if (video_features_setting[i].name == name) {
             treshold_value = video_features_setting[i].value;
         }
     }
     let isPending = false;
+    // check all log collection array ......................................................
     for (let i = 0; i< vf_pending_to_log.length; i++){
         if (vf_pending_to_log[i].name == name) {
             isPending = true;
@@ -201,6 +234,7 @@ function vf_log_control(value , name){
             }
         }
     }
+    // if is not in collection array add it .................................................
     if (!isPending && value > treshold_value){
         vf_pending_to_log.push({
             name:name,
@@ -209,7 +243,12 @@ function vf_log_control(value , name){
     }
 }
 
+
+// ====================================================================================================================
+// ======= add data to log box of view. called in vf_log_contorl ======================================================
+// ====================================================================================================================
 function vf_add_to_log(name,start,end){
+    // generate log table fields ..............................................................
     let start_dt = new Date(start);
     let start_str = start_dt.getHours() + ":" + start_dt.getMinutes() + ":" + start_dt.getSeconds() + ":" + start_dt.getMilliseconds();
     let end_dt = new Date(end);
@@ -218,6 +257,7 @@ function vf_add_to_log(name,start,end){
     if (interval_saved_log_list.length <= __export_log_interval_limit__){
         interval_saved_log_list.push([name,start,end,start_dt.getFullYear()+"/"+(start_dt.getMonth()+1)+"/"+start_dt.getDate()])
     }
+    // set variables to log table fields ......................................................
     let row = $(".log .source").clone();
     row.removeClass("source");
     row.find(".features").text(name);
@@ -226,14 +266,22 @@ function vf_add_to_log(name,start,end){
     row.find(".date").text(start_dt.getFullYear()+"/"+(start_dt.getMonth()+1)+"/"+start_dt.getDate());
     row.find(".icon").attr("src","/static/pic/icon/"+vf_icon_finder(name));
     row.insertAfter(".log .source");
+    // remove added log from pending queue .....................................................
     for (let i = 0; i< vf_pending_to_log.length; i++){
         if (vf_pending_to_log[i].name == name) {
             vf_pending_to_log.splice(i, 1);
         }
     }
+    // remove last one if is more than limit ...................................................
+    if ($(".log .scrolable tr:not(.source)").length > __log_box_limit__){
+        $(".log .scrolable tr:last-child").remove();
+    }
 }
 
 
+// ====================================================================================================================
+// ======= video feature log box icon finder. called in vf_add_to_log function ========================================
+// ====================================================================================================================
 function vf_icon_finder(name){
     for (let i=0;i<__icon_packes__.length;i++){
         if (__icon_packes__[i].name == name){
@@ -244,6 +292,10 @@ function vf_icon_finder(name){
 }
 
 
+
+// ====================================================================================================================
+// ======= mos display by product setting =============================================================================
+// ====================================================================================================================
 if (!__video_features_MOS__){
     $(".video-features .top-part .header .second").css("display","none");
 }
