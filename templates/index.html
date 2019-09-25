@@ -10,16 +10,26 @@
         <meta name="description" content="video analize" />
         <!-- -----------jquery----------------------------------------------- -->
         <script src="{% static 'frontLibs/jquery.min.js' %}"></script>
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <!-- -----------jquery-ui-------------------------------------------- -->
+        <script src="{% static 'frontLibs/jquery-ui/jquery-ui.min.js' %}"></script>
+        <link rel="stylesheet" href="{% static 'frontLibs/jquery-ui/jquery-ui.min.css' %}">
         <!-- -----------bootstrap-------------------------------------------- -->
         <link
             rel="stylesheet"
             href="{% static 'frontLibs/bootstrap-4.3.1-dist/css/bootstrap.min.css' %}"
         />
         <script src="{% static 'frontLibs/bootstrap-4.3.1-dist/js/bootstrap.min.js' %}"></script>
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <!-- -----------project------------------------------------------- -->
+        <!-- -----------material-icon------------------------------------- -->
+        <link href="{% static 'frontLibs/material-icon/icon.css' %}" rel="stylesheet">
+        <!-- -----------hls video palyer---------------------------------- -->
+        <script src="{% static 'frontLibs/hls.js' %}"></script>
+        <!-- -----------no ui slider-------------------------------------- -->
+        <script src="{% static 'frontLibs/noUiSlider-14.0.2/nouislider.min.js' %}"></script>
+        <!-- -----------chart js------------------------------------------ -->
+        <script src="{% static 'frontLibs/chart.js' %}"></script>
+        <!-- -----------chart js plugin----------------------------------- -->
+        <script src="{% static 'frontLibs/chartjs-plugin-doughnutlabel.min.js' %}"></script>
+        <!-- -----------project styles ----------------------------------- -->
         <link rel="stylesheet" href="{% static 'css/main.css' %}" />
         <link rel="stylesheet" href="{% static 'css/header.css' %}">
         <link rel="stylesheet" href="{% static 'css/log.css' %}">
@@ -27,15 +37,17 @@
         <link rel="stylesheet" href="{% static 'css/videoFeatures.css' %}">
         <link rel="stylesheet" href="{% static 'css/setting.css' %}">
         <link rel="stylesheet" href="{% static 'frontLibs/noUiSlider-14.0.2/nouislider.min.css' %}">
-        <script src="{% static 'frontLibs/hls.js' %}"></script>
-        <script src="{% static 'frontLibs/noUiSlider-14.0.2/nouislider.min.js' %}"></script>
-        <script src="{% static 'frontLibs/chart.js' %}"></script>
-        <script src="{% static 'frontLibs/chartjs-plugin-doughnutlabel.min.js' %}"></script>
     </head>
 
     <body>
+
+
         <div class="container-fluid">
+            <!-- =================================================================================================================== -->
+            <!-- ========= top part ================================================================================================ -->
+            <!-- =================================================================================================================== -->
             <div class="row top-row top-container">
+                <!-- ----------- video header details ---------------------------------------------------------------------- -->
                 <div id="videoHeader" class="header">
                     <table class="table table-bordered">
                         <thead>
@@ -55,6 +67,7 @@
                     </table>
                     </div>
                 </div>
+                <!-- ----------- video player ----------------------------------------------------------------------------- -->
                 <div class="video-container">
                     <div class="input-group">
                         <div class="input-group-prepend">
@@ -78,6 +91,7 @@
                         class="video"
                     ></video>
                 </div>
+                <!-- ----------- log box --------------------------------------------------------------------------------- -->
                 <div class="log">
                     <div style="overflow-y: scroll">
                         <table style="border-bottom: none" class="table table-bordered table-hover">
@@ -112,6 +126,9 @@
                     <button type="button" class="btn btn-dark clear">Clear</button>
                 </div>
             </div>
+            <!-- =================================================================================================================== -->
+            <!-- ========= top part ================================================================================================ -->
+            <!-- =================================================================================================================== -->
             <div class="row bottom-row bottom-container">
                 <div class="equalizer">
                     <div class="equalizer-header">
@@ -222,9 +239,16 @@
         </div>
 
 
+        <!-- =================================================================================================================== -->
+        <!-- ========= floating action button (setting modal) ================================================================== -->
+        <!-- =================================================================================================================== -->
         <button type="button" class="btn btn-dark floating-button" data-toggle="modal" data-target="#settingModal"><i class="material-icons">build</i></button>
 
 
+
+        <!-- =================================================================================================================== -->
+        <!-- ========= setting modal =========================================================================================== -->
+        <!-- =================================================================================================================== -->
         <div class="modal fade" id="settingModal" tabindex="-1" role="dialog" aria-labelledby="settingModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
@@ -272,7 +296,9 @@
         </div>
 
 
-
+        <!-- =================================================================================================================== -->
+        <!-- ========= confirm modal =========================================================================================== -->
+        <!-- =================================================================================================================== -->
         <div class="modal fade" id="areYouSure" tabindex="-1" role="dialog" aria-labelledby="areYouSureLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
