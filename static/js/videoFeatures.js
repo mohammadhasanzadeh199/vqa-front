@@ -128,7 +128,7 @@ function setCircular(json) {
         }
         if (!contain) {
             vf_charts[i].element.remove();
-            vf_charts[i].splice(i,1);
+            vf_charts.splice(i,1);
             i--;
         }
     
