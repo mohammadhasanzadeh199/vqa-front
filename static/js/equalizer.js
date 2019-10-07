@@ -17,6 +17,8 @@ function setEqualizers(json) {
     $(".equalizer .table-header .th:not(.source)").remove();
     $(".equalizer .table-body .table-col:not(.source)").remove();
     $(".equalizer .table-footer .footer-item:not(.source)").remove()
+    // calc equalizer width(becouse edge not supported fit-content width) ..............
+    $(".equalizer .table").css("width",eq_data.length*75);
     // now create each column ..........................................................
     for (let i = 0; i<eq_data.length;i++){
         let header = $(".equalizer .table-header .source").clone();

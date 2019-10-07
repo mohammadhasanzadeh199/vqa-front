@@ -1,6 +1,8 @@
 .top-row.top-container {
     height: calc( 9 / 16 * 5 / 12 * 100vw + 50px);
     min-height: 300px;
+    overflow: hidden;
+    flex-wrap: nowrap
 }
 .video-container {
     padding: 0;
@@ -58,7 +60,9 @@
 /* ============================================================================== */
 .bottom-row {
     height: calc(100vh - 9 / 16 * 5 / 12 * 100vw);
-    min-height: 400px
+    min-height: 400px;
+    flex-wrap: nowrap;
+    overflow: hidden;
 }
 .equalizer {
     width: calc(7 / 12 * 100%);

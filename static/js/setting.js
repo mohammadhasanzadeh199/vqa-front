@@ -369,4 +369,6 @@ $("#areYouSure .reset").click(function(){
     localStorage.setItem("setting",JSON.stringify(__defualt_setting__));
     init_equalizer_setting(saved_setting);
     init_video_features_setting(saved_setting);
+    set_equalizer_setting_obj(saved_setting.equalizer);
+    set_video_features_setting_obj(saved_setting.circular);
 })
