@@ -16,12 +16,15 @@ $(".log button.save").click(function(){
         let row = rowArray.join(",");
         csvContent += row + "\r\n";
     });
+    console.log(csvContent);
     var hiddenElement = document.createElement('a');
     hiddenElement.href = encodeURI( csvContent);
     hiddenElement.target = '_blank';
     let downloade_date = new Date();
     let time = "_" + downloade_date.getHours() + "_" + downloade_date.getMinutes() + "_" + downloade_date.getSeconds()
     hiddenElement.download = __export_pre_name__ + time +'.csv';
+    document.getElementById("settingModal").appendChild(hiddenElement);
+    console.log(hiddenElement);
     hiddenElement.click();
 })
 
@@ -43,6 +46,7 @@ setInterval(() => {
         let downloade_date = new Date();
         let time = "_" + downloade_date.getHours() + "_" + downloade_date.getMinutes() + "_" + downloade_date.getSeconds()
         hiddenElement.download = __export_pre_name__ + time +'.csv';
+        document.getElementById("settingModal").appendChild(hiddenElement);
         hiddenElement.click();
         interval_saved_log_list = [];
     }
