@@ -8,24 +8,31 @@ var interval_saved_log_list = [];
 $(".log button.save").click(function(){
     let log_elements = $(".log .scrolable tbody tr:not(.source)").toArray();
     let content = [];
+    let downloade_date = new Date();
+    let time = "_" + downloade_date.getHours() + "_" + downloade_date.getMinutes() + "_" + downloade_date.getSeconds()
     for (let i = 0; i<log_elements.length;i++){
         content.push([$(log_elements[i]).find(".features").text(),$(log_elements[i]).find(".start").text(),$(log_elements[i]).find(".end").text(),$(log_elements[i]).find(".date").text()])
     }
     let csvContent = "data:text/csv;charset=utf-8,";
+    let tempContent = ""
     content.forEach(function(rowArray) {
         let row = rowArray.join(",");
-        csvContent += row + "\r\n";
+        tempContent += row + "\r\n";
     });
-    console.log(csvContent);
-    var hiddenElement = document.createElement('a');
-    hiddenElement.href = encodeURI( csvContent);
-    hiddenElement.target = '_blank';
-    let downloade_date = new Date();
-    let time = "_" + downloade_date.getHours() + "_" + downloade_date.getMinutes() + "_" + downloade_date.getSeconds()
-    hiddenElement.download = __export_pre_name__ + time +'.csv';
-    document.getElementById("settingModal").appendChild(hiddenElement);
-    console.log(hiddenElement);
-    hiddenElement.click();
+    if ( navigator.msSaveOrOpenBlob ) {
+        // Works for Internet Explorer and Microsoft Edge
+        let blob = new Blob( [ tempContent ], { type: "text/csv"} );
+        navigator.msSaveOrOpenBlob( blob, __export_pre_name__ + time +'.csv' );
+    } else {
+        csvContent += tempContent
+        var hiddenElement = document.createElement('a');
+        hiddenElement.href = encodeURI( csvContent);
+        hiddenElement.target = '_blank';
+        hiddenElement.download = __export_pre_name__ + time +'.csv';
+        document.getElementById("settingModal").appendChild(hiddenElement);
+        console.log(hiddenElement);
+        hiddenElement.click();
+    }
 })
 
 
