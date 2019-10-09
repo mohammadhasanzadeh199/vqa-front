@@ -60,7 +60,7 @@
 /* ============================================================================== */
 .bottom-row {
     height: calc(100vh - 9 / 16 * 5 / 12 * 100vw);
-    min-height: 400px;
+    min-height: 450px;
     flex-wrap: nowrap;
     overflow: hidden;
 }

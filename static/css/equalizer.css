@@ -23,7 +23,7 @@
 .equalizer .table-keeper {
     width: 100%;
     height: calc(100% - 40px);
-    min-height: 400px;
+    /* min-height: 400px; */
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
